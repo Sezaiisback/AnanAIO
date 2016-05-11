@@ -12,6 +12,8 @@
 - Bard Flee
 - Check loading from Valvrave to YasuoPro
 - Sentinel Kalista
+- Add auto-semi key for lantern (how sure how to do this, might not do it)
+- Add a Humanizer for w in combo
 
 ------------------------------------------------------------------------
 
