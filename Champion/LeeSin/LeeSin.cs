@@ -634,8 +634,12 @@
                     var target = Q.GetTarget(0);
                     if (target != null && (target.Health + target.AttackShield <= Q.GetDamage(target) || (target.Health + target.AttackShield <= GetQ2Dmg(target, Q.GetDamage(target)) + Player.GetAutoAttackDamage(target) && Player.Mana - Q.Instance.SData.Mana >= 30)))
                     {
+                        var pred = QELO.GetPrediction(target);
                         //Q.CastIfHitchanceMinimum(target, LeagueSharp.SDK.HitChance.High);
-                        QELO.Cast(target);
+                        if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High && pred.HitChance != EloBuddy.SDK.Enumerations.HitChance.Collision)
+                        {
+                            QELO.Cast(target);
+                        }
                         return;
                     }
                 }
