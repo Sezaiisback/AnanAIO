@@ -2,7 +2,6 @@
 - Fix Karthus Orbwalker
 - Rengar jump on Vayne assemblies
 - Check Poppy Crash
-- Check TF ping low enemy
 - Caitlyn on W hard CC
 - Bard Flee
 - Check loading from Valvrave to YasuoPro
