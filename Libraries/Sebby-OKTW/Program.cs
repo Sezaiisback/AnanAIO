@@ -54,7 +54,7 @@ namespace SebbyLib
 
         public static bool LaneClear
         {
-            get { return Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.LaneClear) || Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.JungleClear); }
+            get { return (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.LaneClear) || Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.JungleClear) || Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Harass) || Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.LastHit)) && getCheckBoxItem("harassLaneclear"); }
         }
 
         private static AIHeroClient Player
@@ -106,6 +106,7 @@ namespace SebbyLib
             Config.Add("PredictionMODE", new Slider("Prediction MODE (0 : Common Pred | 1 : OKTW© PREDICTION | 2 : SPrediction | 3 : SDK)", 0, 0, 3));
             Config.Add("HitChance", new Slider("AIO mode (0 : Very High | 1 : High | 2 : Medium)", 0, 0, 2));
             Config.Add("debugPred", new CheckBox("Draw Aiming OKTW© PREDICTION", false));
+            Config.Add("harassLaneclear", new CheckBox("Skill-Harass in lane clear"));
 
             if (getSliderItem("PredictionMODE") == 2)
             {
