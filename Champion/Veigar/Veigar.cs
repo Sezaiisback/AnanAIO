@@ -91,6 +91,7 @@ namespace FreshBooster.Champion
                 Combo.Add("Veigar_CUseE", new CheckBox("Use E"));
                 Combo.Add("Veigar_CUseR", new CheckBox("Use R"));
                 Combo.Add("Veigar_CUseR_Select", new CheckBox("When can be Kill, Only use R"));
+                //Combo.Add("buffer", new Slider("Buffer", 5, 0, 25));
                 Combo.AddLabel("1 : Out of Range");
                 Combo.AddLabel("2 : Impossible");
                 Combo.AddLabel("3 : Low");
