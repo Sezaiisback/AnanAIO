@@ -1,7 +1,6 @@
 ﻿To-Do :
 - Fix Karthus Orbwalker
 - Rengar jump on Vayne assemblies
-- Fix Lee Sin Crash on Combo
 - Check Poppy Crash
 - Check TF ping low enemy
 - Caitlyn on W hard CC
