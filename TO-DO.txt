@@ -7,6 +7,7 @@
 - Add auto-semi key for lantern (not sure how to do this, might not do it)
 - Add a Humanizer for w in combo
 - Check LB AOE Combo
+- https://www.reddit.com/r/summonerschool/comments/4ihcsf/ryze_combo_69/
 
 ------------------------------------------------------------------------
 
