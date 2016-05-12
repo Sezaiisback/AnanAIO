@@ -1,6 +1,4 @@
 ﻿To-Do :
-- Check Sejuani
-- Check Anivia randomly casting spells
 - Mordekaiser Crashing on Ult @ Low HP
 - Fix Karthus Orbwalker
 - Rengar jump on Vayne assemblies
