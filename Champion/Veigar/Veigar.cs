@@ -180,6 +180,26 @@ namespace FreshBooster.Champion
             Interrupter2.OnInterruptableTarget += Interrupter2_OnInterruptableTarget;
         }
 
+        public static double getRDamage(AIHeroClient target)
+        {
+            /*
+            local lvl = myHero:GetSpellData(_R).level
+            local ap = GetAp(myHero)
+            local eap = GetAp(target)
+            local dmg = 125 + lvl*125 + ap + (eap * 0.8)
+            local dmgp = dmg * (100/(100+target.magicArmor))
+            dmgp = dmgp - (dmgp * (Veigar.adv.r.buffer/100))
+            */
+
+            var lvl = _R.Level;
+            var ap = ObjectManager.Player.TotalMagicalDamage;
+            var eap = target.TotalMagicalDamage;
+            var dmg = 125 + lvl * 125 + ap + (eap * 0.8);
+            var dmgp = dmg * (100 / (100 + target.FlatMagicReduction));
+            dmgp = dmgp - (dmgp * (getSliderItem(Combo, "buffer") / 100));
+            return dmgp;
+        }
+
         private static void OnGameUpdate(EventArgs args)
         {
             try
