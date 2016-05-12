@@ -420,6 +420,11 @@ namespace ElUtilitySuite.Summoners
                                  },*/
                              new CleanseSpell
                                  {
+                                     Champion = "LeeSin", Name = "knockback", MenuName = "Lee Sin R", Evade = false,
+                                     DoT = false, EvadeTimer = 0, Cleanse = true, CleanseTimer = 0, Slot = SpellSlot.R
+                                 },
+                             new CleanseSpell
+                                 {
                                      Champion = "Leblanc", Name = "leblancsoulshackle", MenuName = "Leblanc Shackle",
                                      Evade = false, DoT = false, EvadeTimer = 2000, Cleanse = true, CleanseTimer = 0,
                                      Slot = SpellSlot.E

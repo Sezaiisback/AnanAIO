@@ -230,7 +230,7 @@ namespace FreshBooster.Champion
                         return;
                     }
 
-                    if (getCheckBoxItem(Combo, "Veigar_CUseR_Select") && getCheckBoxItem(Combo, "Veigar_CUseR") && _R.IsReady() && KTarget.Health < _R.GetDamage(KTarget) && KTarget.LSDistance(Player) <= _R.Range)
+                    if (getCheckBoxItem(Combo, "Veigar_CUseR_Select") && getCheckBoxItem(Combo, "Veigar_CUseR") && _R.IsReady() && KTarget.Health < Player.GetSpellDamage(KTarget, SpellSlot.R) && KTarget.LSDistance(Player) <= _R.Range)
                     {
                         _R.Cast(KTarget, true);
                         return;
