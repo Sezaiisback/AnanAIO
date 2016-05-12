@@ -469,7 +469,7 @@
                         CastQSmite(target);
                     }
                 }
-                else if (getCheckBoxItem(comboMenu, "Q2") && !IsDashing && Q2.IsInRange(objQ) && !IsQOne)
+                else if (getCheckBoxItem(comboMenu, "Q2") && !IsDashing && objQ.IsValidTarget(Q2.Range) && !IsQOne)
                 {
                     var target = objQ as AIHeroClient;
                     if (target != null)
