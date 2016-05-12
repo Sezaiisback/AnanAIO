@@ -1,5 +1,4 @@
 ﻿To-Do :
-- Fix Karthus Orbwalker
 - Rengar jump on Vayne assemblies
 - Check Poppy Crash
 - Caitlyn on W hard CC
