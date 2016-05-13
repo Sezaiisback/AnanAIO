@@ -8,6 +8,7 @@
 - Add a Humanizer for w in combo
 - Check LB AOE Combo
 - https://www.reddit.com/r/summonerschool/comments/4ihcsf/ryze_combo_69/
+- Check Lee Sin Manual R to Combo Key Q
 
 ------------------------------------------------------------------------
 
