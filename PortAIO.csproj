@@ -207,6 +207,13 @@
     <Compile Include="Dual-Port\ExorCait\Properties\Utilities\Methods.cs" />
     <Compile Include="Dual-Port\ExorCait\Properties\Utilities\Spells.cs" />
     <Compile Include="Dual-Port\ExorCait\Properties\Utilities\Targets.cs" />
+    <Compile Include="Dual-Port\iDzEzreal\Ezreal.cs" />
+    <Compile Include="Dual-Port\iDzEzreal\EzrealBootstrap.cs" />
+    <Compile Include="Dual-Port\iDzEzreal\MenuHelper\MenuGenerator.cs" />
+    <Compile Include="Dual-Port\iDzEzreal\Modules\AutoHarassModule.cs" />
+    <Compile Include="Dual-Port\iDzEzreal\Modules\QKSModule.cs" />
+    <Compile Include="Dual-Port\iDzEzreal\Modules\SemiRModule.cs" />
+    <Compile Include="Dual-Port\iDzEzreal\Variables.cs" />
     <Compile Include="Dual-Port\iLucian\Lucian.cs" />
     <Compile Include="Dual-Port\iLucian\MenuHelper\MenuGenerator.cs" />
     <Compile Include="Dual-Port\iLucian\Utils\MathHelper.cs" />

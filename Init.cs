@@ -227,12 +227,25 @@ namespace PortAIO
                                 break;
                         }
                         break;
+                    case "ezreal":
+                        switch (Loader.ezreal)
+                        {
+                            case 0:
+                                SebbyLib.Program.GameOnOnGameLoad();
+                                break;
+                            case 1:
+                                iDZEzreal.EzrealBootstrap.OnGameLoad();
+                                break;
+                            default:
+                                SebbyLib.Program.GameOnOnGameLoad();
+                                break;
+                        }
+                        break;
                     case "anivia": // OKTW - Sebby - All Seeby champs go down here
                     case "thresh":
                     case "annie":
                     case "braum":
                     case "ekko":
-                    case "ezreal":
                     case "graves":
                     case "jinx":
                     case "karthus":
