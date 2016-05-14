@@ -1,5 +1,14 @@
 ﻿To-Do :
-- Bard Flee [Don't have Bard so can't fix]
+- Rengar jump on Vayne assemblies
+- Check Poppy Crash
+- Caitlyn on W hard CC
+- Bard Flee
+- Sentinel Kalista
+- Add auto-semi key for lantern (not sure how to do this, might not do it)
+- Add a Humanizer for w in combo
+- Check LB AOE Combo
+- https://www.reddit.com/r/summonerschool/comments/4ihcsf/ryze_combo_69/
+- Check Lee Sin Manual R to Combo Key Q
 
 ------------------------------------------------------------------------
 
@@ -9,7 +18,6 @@ To-Check :
 ------------------------------------------------------------------------
 
 Port [Will Port One at a time when I'm bored or there's nothing on the to-do] :
-- Tyler1.exe
 - iDzEzreal
 - The Cheater
 - AIOCaster
@@ -22,7 +30,7 @@ Port [Will Port One at a time when I'm bored or there's nothing on the to-do] :
 - DRengar/Elise/J4
 - ExorAnivia/Ashe/Mundo/Graves/Jax/Jhin/Jax/Quinn/Sivir
 - Kurisu's Blitzcrank
-- FreshBooster Braum & LeBlanc
+- FreshBooster Braum
 - Nocturne is Back https://github.com/xQxCPMxQx/LeagueSharp2/tree/master/Nocturne
 - Kurisu Riven
 - Chewymoon Shaco
@@ -36,6 +44,6 @@ Port [Will Port One at a time when I'm bored or there's nothing on the to-do] :
 - Zed is Back
 - Swiftly Teemo
 - ElEasy Ryze
+- Tyler1.exe
 - Fast Trundle
 - Snitched 3.0
-- https://www.reddit.com/r/summonerschool/comments/4ihcsf/ryze_combo_69/
