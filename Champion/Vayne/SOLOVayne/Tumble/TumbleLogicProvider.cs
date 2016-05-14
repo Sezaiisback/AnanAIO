@@ -26,7 +26,7 @@ namespace SoloVayne.Skills.Tumble
             var positions = TumbleHelper.GetRotatedQPositions();
             var enemyPositions = TumbleHelper.GetEnemyPoints();
             var safePositions = positions.Where(pos => !enemyPositions.Contains(pos.To2D())).ToList();
-            var BestPosition = ObjectManager.Player.ServerPosition.Extend(Game.CursorPos, 300f);
+            var BestPosition = ObjectManager.Player.ServerPosition.LSExtend(Game.CursorPos, 300f);
             var AverageDistanceWeight = .60f;
             var ClosestDistanceWeight = .40f;
 
@@ -48,7 +48,7 @@ namespace SoloVayne.Skills.Tumble
             if (ObjectManager.Player.CountEnemiesInRange(1500f) <= 1)
             {
                 //Logic for 1 enemy near
-                var position = ObjectManager.Player.ServerPosition.Extend(Game.CursorPos, 300f).To3D();
+                var position = ObjectManager.Player.ServerPosition.LSExtend(Game.CursorPos, 300f);
                 return position;
             }
 
@@ -85,8 +85,8 @@ namespace SoloVayne.Skills.Tumble
                             t.LSDistance(ObjectManager.Player) < Orbwalking.GetRealAutoAttackRange(t) + 80f))
                 {
                     var QPosition =
-                        ObjectManager.Player.ServerPosition.Extend(
-                            highHealthEnemiesNear.OrderBy(t => t.Health).First().ServerPosition, 300f).To3D();
+                        ObjectManager.Player.ServerPosition.LSExtend(
+                            highHealthEnemiesNear.OrderBy(t => t.Health).First().ServerPosition, 300f);
 
                     if (!LeagueSharp.Common.Utility.UnderTurret(QPosition, true))
                     {
@@ -150,14 +150,14 @@ namespace SoloVayne.Skills.Tumble
                     if (weightedAvg > bestWeightedAvg && position.IsSafeEx())
                     {
                         bestWeightedAvg = weightedAvg;
-                        BestPosition = position.To2D();
+                        BestPosition = position;
                     }
                 }
             }
 
             #endregion
 
-            var endPosition = BestPosition.To3D().IsSafe() ? BestPosition.To3D() : Game.CursorPos;
+            var endPosition = BestPosition.IsSafe() ? BestPosition : Game.CursorPos;
 
             #region Couldn't find a suitable position, tumble to nearest ally logic
 
@@ -183,7 +183,7 @@ namespace SoloVayne.Skills.Tumble
                             enemiesNear.OrderBy(m => m.LSDistance(ObjectManager.Player)).FirstOrDefault()))
                     {
                         var tempPosition =
-                            ObjectManager.Player.ServerPosition.Extend(closestMostHealth.ServerPosition, 300f).To3D();
+                            ObjectManager.Player.ServerPosition.LSExtend(closestMostHealth.ServerPosition, 300f);
                         if (tempPosition.IsSafeEx())
                         {
                             endPosition = tempPosition;
@@ -230,7 +230,7 @@ namespace SoloVayne.Skills.Tumble
 
             if (endPosition == Vector3.Zero)
             {
-                var mousePosition = ObjectManager.Player.ServerPosition.Extend(Game.CursorPos, 300f).To3D();
+                var mousePosition = ObjectManager.Player.ServerPosition.LSExtend(Game.CursorPos, 300f);
                 if (mousePosition.IsSafe())
                 {
                     endPosition = mousePosition;
@@ -241,7 +241,7 @@ namespace SoloVayne.Skills.Tumble
 
             if (ObjectManager.Player.HealthPercent < 10 && ObjectManager.Player.CountEnemiesInRange(1500) > 1)
             {
-                var position = ObjectManager.Player.ServerPosition.Extend(Game.CursorPos, 300f).To3D();
+                var position = ObjectManager.Player.ServerPosition.LSExtend(Game.CursorPos, 300f);
                 return position.IsSafeEx() ? position : endPosition;
             }
 

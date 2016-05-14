@@ -21,7 +21,7 @@ namespace LCS_Lucian
                 {
                     if (Program.getCheckBoxItem(Program.miscMenu, "gapclose." + ((AIHeroClient) sender).ChampionName))
                     {
-                        LucianSpells.E.Cast(ObjectManager.Player.Position.Extend(spell.End, -LucianSpells.W.Range));
+                        LucianSpells.E.Cast(ObjectManager.Player.Position.LSExtend(spell.End, -LucianSpells.W.Range));
                     }
                 }
             }

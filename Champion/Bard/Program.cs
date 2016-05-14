@@ -204,7 +204,7 @@ namespace PortAIO.Champion.Bard
                 foreach (var position in BeamStartPositions)
                 {
                     var collisionableObjects = spells[SpellSlot.Q].GetCollision(position.To2D(),
-                        new List<Vector2> { position.Extend(PlayerPosition, -QPushDistance) });
+                        new List<Vector2> { position.LSExtend(PlayerPosition, -QPushDistance).LSTo2D() });
 
                     if (collisionableObjects.Any())
                     {
@@ -217,13 +217,13 @@ namespace PortAIO.Champion.Bard
 
                         for (var i = 0; i < QPushDistance; i += (int)comboTarget.BoundingRadius)
                         {
-                            CollisionPositions.Add(position.Extend(PlayerPosition, -i).To3D());
+                            CollisionPositions.Add(position.LSExtend(PlayerPosition, -i));
                         }
                     }
 
                     for (var i = 0; i < QPushDistance; i += (int)comboTarget.BoundingRadius)
                     {
-                        PositionsList.Add(position.Extend(PlayerPosition, -i).To3D());
+                        PositionsList.Add(position.LSExtend(PlayerPosition, -i));
                     }
                 }
 
@@ -260,7 +260,7 @@ namespace PortAIO.Champion.Bard
 
             if (ObjectManager.Player.HealthPercent <= getSliderItem(miscMenu, "dz191.bard.wtarget.healthpercent"))
             {
-                var castPosition = ObjectManager.Player.ServerPosition.Extend(Game.CursorPos, 65);
+                var castPosition = ObjectManager.Player.ServerPosition.LSExtend(Game.CursorPos, 65);
                 spells[SpellSlot.W].Cast(castPosition);
                 return;
             }
@@ -286,7 +286,7 @@ namespace PortAIO.Champion.Bard
             double distance = Vector3.Distance(start, end);
             for (uint i = 0; i < distance; i += 10)
             {
-                var tempPosition = start.Extend(end, i);
+                var tempPosition = start.LSExtend(end, i);
                 if (tempPosition.IsWall())
                 {
                     return true;
@@ -301,10 +301,10 @@ namespace PortAIO.Champion.Bard
             double distance = Vector3.Distance(start, end);
             for (uint i = 0; i < distance; i += 10)
             {
-                var tempPosition = start.Extend(end, i);
+                var tempPosition = start.LSExtend(end, i);
                 if (tempPosition.IsWall())
                 {
-                    return tempPosition.Extend(start, -35).To3D();
+                    return tempPosition.LSExtend(start, -35);
                 }
             }
 
@@ -319,7 +319,7 @@ namespace PortAIO.Champion.Bard
 
             for (uint i = 0; i < distance; i += 10)
             {
-                var tempPosition = start.Extend(end, i).To3D();
+                var tempPosition = start.LSExtend(end, i);
                 if (tempPosition.IsWall() && firstPosition == Vector3.Zero)
                 {
                     firstPosition = tempPosition;

@@ -141,14 +141,14 @@ namespace OneKeyToWin_AIO_Sebby.Core
 
                     if (misToTarget < QWER.Range && misToTarget > 50)
                     {
-                        var cursorToTarget = Target.LSDistance(Player.Position.Extend(Game.CursorPos, 100));
-                        var ext = finishPosition.Extend(Target.ServerPosition, cursorToTarget + misToTarget);
+                        var cursorToTarget = Target.LSDistance(Player.Position.LSExtend(Game.CursorPos, 100));
+                        var ext = finishPosition.LSExtend(Target.ServerPosition, cursorToTarget + misToTarget);
 
                         if (ext.LSDistance(Player.Position) < 800 && ext.CountEnemiesInRange(400) < 2)
                         {
                             if (getCheckBoxItem("drawHelper"))
-                                Utility.DrawCircle(ext.To3D(), 100, Color.White, 1, 1);
-                            return ext.To3D();
+                                Utility.DrawCircle(ext, 100, Color.White, 1, 1);
+                            return ext;
                         }
                     }
                 }

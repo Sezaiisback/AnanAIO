@@ -99,8 +99,8 @@ namespace HeavenStrikeAzir
             if (!Program._r2.IsReady())
                 return;
             //case 1
-            Vector2 start1 = Player.Position.To2D().Extend(InsecPoint.To2D(), -300);
-            Vector2 end1 = start1.Extend(Player.Position.To2D(), 750);
+            Vector2 start1 = Player.Position.To2D().LSExtend(InsecPoint.To2D(), -300);
+            Vector2 end1 = start1.LSExtend(Player.Position.To2D(), 750);
             float width1 = Program._r.Level == 3 ? 125 * 6 / 2 :
                         Program._r.Level == 2 ? 125 * 5 / 2 :
                         125 * 4 / 2;
@@ -125,8 +125,8 @@ namespace HeavenStrikeAzir
                 {
                     var time = Player.Position.LSDistance(sold2.Position) / 1700f;
                     var predicted2 = LeagueSharp.Common.Prediction.GetPrediction(target, time).UnitPosition;
-                    Vector2 start2 = sold2.Position.To2D().Extend(InsecPoint.To2D(), -300);
-                    Vector2 end2 = start2.Extend(InsecPoint.To2D(), 750);
+                    Vector2 start2 = sold2.Position.To2D().LSExtend(InsecPoint.To2D(), -300);
+                    Vector2 end2 = start2.LSExtend(InsecPoint.To2D(), 750);
                     float width2 = Program._r.Level == 3 ? 125 * 6 / 2 :
                                 Program._r.Level == 2 ? 125 * 5 / 2 :
                                 125 * 4 / 2;
@@ -142,8 +142,8 @@ namespace HeavenStrikeAzir
                 {
                     var time = (Player.LSDistance(sold2.Position) + sold2.Position.LSDistance(target.Position)) / 1700f;
                     var predicted2 = LeagueSharp.Common.Prediction.GetPrediction(target, time).UnitPosition;
-                    Vector2 start2 = target.Position.To2D().Extend(InsecPoint.To2D(), -300);
-                    Vector2 end2 = start2.Extend(InsecPoint.To2D(), 750);
+                    Vector2 start2 = target.Position.To2D().LSExtend(InsecPoint.To2D(), -300);
+                    Vector2 end2 = start2.LSExtend(InsecPoint.To2D(), 750);
                     float width2 = Program._r.Level == 3 ? 125 * 6 / 2 :
                                 Program._r.Level == 2 ? 125 * 5 / 2 :
                                 125 * 4 / 2;
@@ -167,8 +167,8 @@ namespace HeavenStrikeAzir
                     {
                         var time = Player.Position.To2D().LSDistance((Vector2)posW) / 1700f + 0.3f;
                         var predicted2 = LeagueSharp.Common.Prediction.GetPrediction(target, time).UnitPosition;
-                        Vector2 start2 = ((Vector2)posW).Extend(InsecPoint.To2D(), -300);
-                        Vector2 end2 = start2.Extend(InsecPoint.To2D(), 750);
+                        Vector2 start2 = ((Vector2)posW).LSExtend(InsecPoint.To2D(), -300);
+                        Vector2 end2 = start2.LSExtend(InsecPoint.To2D(), 750);
                         float width2 = Program._r.Level == 3 ? 125 * 6 / 2 :
                                     Program._r.Level == 2 ? 125 * 5 / 2 :
                                     125 * 4 / 2;
@@ -176,7 +176,7 @@ namespace HeavenStrikeAzir
                         if (Rect2.IsInside(target.Position) && Rect2.IsInside(predicted2))
                         {
                             var timetime = ((Vector2)posW).LSDistance(Player.Position) * 1000 / 1700;
-                            Program._w.Cast(Player.Position.To2D().Extend((Vector2)posW, Program._w.Range));
+                            Program._w.Cast(Player.Position.To2D().LSExtend((Vector2)posW, Program._w.Range));
                             LeagueSharp.Common.Utility.DelayAction.Add(0, () => Program._e.Cast((Vector2)posW));
                             LeagueSharp.Common.Utility.DelayAction.Add((int)timetime + 300 - 150 - Program.EQdelay, () => Program._q2.Cast(target.Position));
                             LastJump = Environment.TickCount;
@@ -187,8 +187,8 @@ namespace HeavenStrikeAzir
                     {
                         var time = (Player.LSDistance((Vector2)posW) + ((Vector2)posW).LSDistance(target.Position)) / 1700f + 0.3f;
                         var predicted2 = LeagueSharp.Common.Prediction.GetPrediction(target, time).UnitPosition;
-                        Vector2 start2 = target.Position.To2D().Extend(InsecPoint.To2D(), -300);
-                        Vector2 end2 = start2.Extend(InsecPoint.To2D(), 750);
+                        Vector2 start2 = target.Position.To2D().LSExtend(InsecPoint.To2D(), -300);
+                        Vector2 end2 = start2.LSExtend(InsecPoint.To2D(), 750);
                         float width2 = Program._r.Level == 3 ? 125 * 6 / 2 :
                                     Program._r.Level == 2 ? 125 * 5 / 2 :
                                     125 * 4 / 2;
@@ -196,7 +196,7 @@ namespace HeavenStrikeAzir
                         if (Rect2.IsInside(target.Position) && Rect2.IsInside(predicted2))
                         {
                             var timetime = ((Vector2)posW).LSDistance(Player.Position) * 1000 / 1700;
-                            Program._w.Cast(Player.Position.To2D().Extend((Vector2)posW, Program._w.Range));
+                            Program._w.Cast(Player.Position.To2D().LSExtend((Vector2)posW, Program._w.Range));
                             LeagueSharp.Common.Utility.DelayAction.Add(0, () => Program._e.Cast((Vector2)posW));
                             LeagueSharp.Common.Utility.DelayAction.Add((int)timetime + 300 - 150 - Program.EQdelay, () => Program._q2.Cast(target.Position));
                             LastJump = Environment.TickCount;

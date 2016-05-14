@@ -49,12 +49,12 @@ namespace SoloVayne.Skills.Condemn
                 }
                 var prediction = Program.E2.GetPrediction(Hero);
                 var targetPosition = prediction.UnitPosition;
-                var finalPosition = targetPosition.Extend(startPosition, -PushDistance);
-                var finalPosition_ex = Hero.ServerPosition.Extend(startPosition, -PushDistance);
-                var finalPosition_3 = prediction.CastPosition.Extend(startPosition, -PushDistance);
+                var finalPosition = targetPosition.LSExtend(startPosition, -PushDistance);
+                var finalPosition_ex = Hero.ServerPosition.LSExtend(startPosition, -PushDistance);
+                var finalPosition_3 = prediction.CastPosition.LSExtend(startPosition, -PushDistance);
 
                 //Yasuo Wall Logic
-                if (YasuoWall.CollidesWithWall(startPosition, Hero.ServerPosition.Extend(startPosition, -450f).To3D()))
+                if (YasuoWall.CollidesWithWall(startPosition, Hero.ServerPosition.LSExtend(startPosition, -450f)))
                 {
                     continue;
                 }
@@ -80,12 +80,12 @@ namespace SoloVayne.Skills.Condemn
 
                 //Condemn To Wall Logic
                 var condemnRectangle =
-                    new SOLOPolygon(SOLOPolygon.Rectangle(targetPosition.To2D(), finalPosition, Hero.BoundingRadius));
+                    new SOLOPolygon(SOLOPolygon.Rectangle(targetPosition.To2D(), finalPosition.LSTo2D(), Hero.BoundingRadius));
                 var condemnRectangle_ex =
-                    new SOLOPolygon(SOLOPolygon.Rectangle(Hero.ServerPosition.To2D(), finalPosition_ex,
+                    new SOLOPolygon(SOLOPolygon.Rectangle(Hero.ServerPosition.To2D(), finalPosition_ex.LSTo2D(),
                         Hero.BoundingRadius));
                 var condemnRectangle_3 =
-                    new SOLOPolygon(SOLOPolygon.Rectangle(prediction.CastPosition.To2D(), finalPosition_3,
+                    new SOLOPolygon(SOLOPolygon.Rectangle(prediction.CastPosition.To2D(), finalPosition_3.LSTo2D(),
                         Hero.BoundingRadius));
 
                 if (IsBothNearWall(Hero))
@@ -163,7 +163,7 @@ namespace SoloVayne.Skills.Condemn
             var targetPosition = target.ServerPosition;
             for (var i = 0; i < pushDistance; i += 40)
             {
-                var tempPos = targetPosition.Extend(fromPosition, -i).To3D();
+                var tempPos = targetPosition.LSExtend(fromPosition, -i);
                 if (tempPos.LSIsWall())
                 {
                     return true;

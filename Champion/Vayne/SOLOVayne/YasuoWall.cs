@@ -74,8 +74,8 @@ namespace SOLOVayne
 
             for (var i = 0; i < start.LSDistance(end); i += 30)
             {
-                var currentPosition = start.Extend(end, i);
-                if (wallStart.Intersection(wallEnd, currentPosition, start.To2D()).Intersects)
+                var currentPosition = start.LSExtend(end, i);
+                if (wallStart.Intersection(wallEnd, currentPosition.LSTo2D(), start.To2D()).Intersects)
                 {
                     return true;
                 }

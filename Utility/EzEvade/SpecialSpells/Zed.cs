@@ -80,12 +80,12 @@ namespace ezEvade.SpecialSpells
                             Vector3 endPos2;
                             if (info.usePosition == false)
                             {
-                                endPos2 = info.obj.Position.Extend(args.End, spellData.range).To3DWorld();
+                                endPos2 = info.obj.Position.LSExtend(args.End, spellData.range);
                                 SpellDetector.CreateSpellData(hero, info.obj.Position, endPos2, spellData, null, 0, false);
                             }
                             else
                             {
-                                endPos2 = info.position.Extend(args.End, spellData.range).To3DWorld();
+                                endPos2 = info.position.LSExtend(args.End, spellData.range);
                                 SpellDetector.CreateSpellData(hero, info.position, endPos2, spellData, null, 0, false);
                             }
 
