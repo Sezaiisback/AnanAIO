@@ -367,12 +367,13 @@ namespace Tyler1
                         //maybe user just has potato reaction time
                         return;
                     }
-                    if (AXE.Distance(Player.ServerPosition) > 70 && Orbwalker.CanMove)
+                    if (AXE.Distance(Player.ServerPosition) > 60 && Orbwalker.CanMove)
                     {
+                        Orbwalker.DisableMovement = false;
                         Orbwalker.OrbwalkTo(AXE.Position.Randomize());
                         Orbwalker.DisableMovement = true;
                     }
-                    if (AXE.Distance(Player.ServerPosition) <= 80)
+                    if (AXE.Distance(Player.ServerPosition) <= 70)
                     {
                         Orbwalker.DisableMovement = false;
                     }

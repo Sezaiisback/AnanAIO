@@ -31,7 +31,7 @@ namespace vSupport_Series.Champions
             E = new Spell(SpellSlot.E, 800);
             R = new Spell(SpellSlot.R, 2750);
 
-            Q.SetSkillshot(1f, 125f, float.MaxValue, false, SkillshotType.SkillshotCircle);
+            Q.SetSkillshot(0.95f, 200f, float.MaxValue, false, SkillshotType.SkillshotCircle);
             R.SetSkillshot(0.5f, 260f, 850f, false, SkillshotType.SkillshotLine);
 
             Config = MainMenu.AddMenu("vSupport Series: " + Player.ChampionName, "vSupport Series");
