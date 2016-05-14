@@ -239,6 +239,8 @@
     <Compile Include="Dual-Port\NechritoTwitch\MenuConfig.cs" />
     <Compile Include="Dual-Port\NechritoTwitch\Program.cs" />
     <Compile Include="Dual-Port\NechritoTwitch\Spells.cs" />
+    <Compile Include="Dual-Port\Tyler1\Program.cs" />
+    <Compile Include="Dual-Port\Tyler1\Utils.cs" />
     <Compile Include="Dual-Port\UnderratedFiora\Fiora.cs" />
     <Compile Include="Champion\Fizz\Program.cs" />
     <Compile Include="Champion\Galio\Program.cs" />
@@ -1094,7 +1096,6 @@
     <None Include="Resources\RecallBar.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Dual-Port\Tyler1\" />
     <Folder Include="Libraries\ValvraveSharp\Plugin\" />
   </ItemGroup>
   <ItemGroup>
