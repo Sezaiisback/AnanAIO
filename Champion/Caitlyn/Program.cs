@@ -266,7 +266,7 @@ namespace PortAIO.Champion.Caitlyn
                     {
                         if (W.GetPrediction(target).Hitchance >= HitChance.Medium && W.IsInRange(target))
                         {
-                            W.Cast(W.GetPrediction(target).CastPosition);
+                            W.Cast(target);
                         }
                     }
 
@@ -274,12 +274,12 @@ namespace PortAIO.Champion.Caitlyn
                     {
                         if (Utils.TickCount - W.LastCastAttemptT > 1000)
                         {
-                            W.Cast(enemy.Position, true);
+                            W.Cast(target, true);
                             LastW = enemy;
                         }
                         else if (LastW.NetworkId != enemy.NetworkId)
                         {
-                            W.Cast(enemy.Position, true);
+                            W.Cast(target, true);
                             LastW = enemy;
                         }
                     }

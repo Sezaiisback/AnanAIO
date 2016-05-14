@@ -51,6 +51,7 @@ namespace iKalistaReborn
         public Kalista()
         {
             CreateMenu();
+            SentinelManager.Initialize();
             LoadModules();
             Game.OnUpdate += OnUpdate;
             Drawing.OnDraw += OnDraw;
@@ -147,14 +148,45 @@ namespace iKalistaReborn
             {
                 jungleStealMenu.Add(minion.Key, new CheckBox(minion.Value, true));
             }
-            
+
             miscMenu = Menu.AddSubMenu("iKalista: Reborn - Misc", "com.ikalista.Misc");
             miscMenu.Add("com.ikalista.misc.forceW", new CheckBox("Focus Enemy With W"));
+            if (Game.MapId != GameMapId.SummonersRift)
+            {
+                miscMenu.AddLabel("Sentinel Manager is only on Summoners Rift, sorry.");
+            }
+            else
+            {
+                miscMenu.AddGroupLabel("Sentinel Manager (HellSing) :");
+                miscMenu.Add("enabled", new CheckBox("Enabled"));
+                miscMenu.Add("noMode", new CheckBox("Only use when no mode active"));
+                miscMenu.Add("alert", new CheckBox("Alert when sentinel is taking damage"));
+                miscMenu.Add("mana", new Slider("Minimum mana available when casting W ({0}%)", 40));
+                miscMenu.AddLabel("Send to the following locations (no specific order):");
+                miscMenu.Add("baron", new CheckBox("Baron (stuck bug usage)"));
+                miscMenu.Add("dragon", new CheckBox("Dragon (stuck bug usage)"));
+                miscMenu.Add("mid", new CheckBox("Mid lane brush"));
+                miscMenu.Add("blue", new CheckBox("Blue buff"));
+                miscMenu.Add("red", new CheckBox("Red buff"));
+                SentinelManager.RecalculateOpenLocations();
+
+                miscMenu["baron"].Cast<CheckBox>().OnValueChange += OnValueChange;
+                miscMenu["dragon"].Cast<CheckBox>().OnValueChange += OnValueChange;
+                miscMenu["mid"].Cast<CheckBox>().OnValueChange += OnValueChange;
+                miscMenu["blue"].Cast<CheckBox>().OnValueChange += OnValueChange;
+                miscMenu["red"].Cast<CheckBox>().OnValueChange += OnValueChange;
+            }
 
             drawingMenu = Menu.AddSubMenu("iKalista: Reborn - Drawing", "com.ikalista.drawing");
             drawingMenu.Add("com.ikalista.drawing.spellRanges", new CheckBox("Draw Spell Ranges"));
             drawingMenu.Add("com.ikalista.drawing.eDamage", new CheckBox("Draw E Damage"));//.SetValue(new Circle(true, Color.DarkOliveGreen)));
             drawingMenu.Add("com.ikalista.drawing.damagePercent", new CheckBox("Draw Percent Damage"));//.SetValue(new Circle(true, Color.DarkOliveGreen)));
+        }
+
+
+        private static void OnValueChange(ValueBase<bool> sender, ValueBase<bool>.ValueChangeArgs args)
+        {
+            SentinelManager.RecalculateOpenLocations();
         }
 
         private void LoadModules()
@@ -282,8 +314,8 @@ namespace iKalistaReborn
                 var targets =
                     HeroManager.Enemies.Where(
                         x =>
-                            ObjectManager.Player.Distance(x) <= SpellManager.Spell[SpellSlot.E].Range*2 &&
-                            x.IsValidTarget(SpellManager.Spell[SpellSlot.E].Range*2));
+                            ObjectManager.Player.Distance(x) <= SpellManager.Spell[SpellSlot.E].Range * 2 &&
+                            x.IsValidTarget(SpellManager.Spell[SpellSlot.E].Range * 2));
 
                 if (targets.Count(x => ObjectManager.Player.Distance(x) < Orbwalking.GetRealAutoAttackRange(x)) == 0)
                 {

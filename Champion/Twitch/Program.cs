@@ -248,6 +248,21 @@ namespace OneKeyToWin_AIO_Sebby.Champions
                 Q.Cast();
         }
 
+        private static int getEBuffCount(Obj_AI_Base obj)
+        {
+            var twitchECount = 0;
+            for (var i = 1; i < 7; i++)
+            {
+                if (ObjectManager.Get<Obj_GeneralParticleEmitter>()
+                    .Any(e => e.Position.Distance(obj.ServerPosition) <= 175 &&
+                              e.Name == "twitch_poison_counter_0" + i + ".troy"))
+                {
+                    twitchECount = i;
+                }
+            }
+            return twitchECount;
+        }
+
         private static void LogicE()
         {
             foreach (
@@ -259,19 +274,18 @@ namespace OneKeyToWin_AIO_Sebby.Champions
                     Program.debug("DUPAAA1");
                     E.Cast();
                 }
+
                 if (Player.Mana > RMANA + EMANA)
                 {
-                    var buffsNum = OktwCommon.GetBuffCount(enemy, "TwitchDeadlyVenom");
-                    if (getCheckBoxItem(eMenu, "5e") && buffsNum == 6)
+                    var buffNum = getEBuffCount(enemy);
+                    if (getCheckBoxItem(eMenu, "5e") && buffNum == 6)
                     {
                         Program.debug("DUPAAA2");
                         E.Cast();
                     }
-                    var buffTime = OktwCommon.GetPassiveTime(enemy, "TwitchDeadlyVenom");
 
-                    if (!Orbwalking.InAutoAttackRange(enemy) &&
-                        (Player.ServerPosition.Distance(enemy.ServerPosition) > 950 || buffTime < 1) &&
-                        0 < getSliderItem(eMenu, "countE") && buffsNum >= getSliderItem(eMenu, "countE"))
+                    var buffTime = OktwCommon.GetPassiveTime(enemy, "twitchdeadlyvenom");
+                    if (!Orbwalking.InAutoAttackRange(enemy) && (Player.ServerPosition.Distance(enemy.ServerPosition) > 950 || buffTime < 1) && 0 < getSliderItem(eMenu, "countE") && buffNum >= getSliderItem(eMenu, "countE"))
                     {
                         Program.debug("DUPAAA3 " + buffTime);
                         E.Cast();
