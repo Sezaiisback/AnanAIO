@@ -150,7 +150,7 @@ namespace UnderratedAIO.Champions
             var target = TargetSelector.GetTarget(E.Range, DamageType.Magical);
             if (target == null)
             {
-                if (maoR)
+                if (maoR && !getCheckBoxItem(comboMenu, "cancelR"))
                 {
                     if (!turnOff)
                     {
@@ -160,31 +160,38 @@ namespace UnderratedAIO.Champions
                 }
                 return;
             }
+
             if (getCheckBoxItem(comboMenu, "selected"))
             {
                 target = CombatHelper.SetTarget(target, TargetSelector.SelectedTarget);
-                Orbwalker.ForcedTarget = target;
+                if (target != null)
+                {
+                    Orbwalker.ForcedTarget = target;
+                }
+                else
+                {
+                    Orbwalker.ForcedTarget = null;
+                }
             }
+            else
+            {
+                Orbwalker.ForcedTarget = null;
+            }
+
             var manaperc = player.Mana/player.MaxMana*100;
-            if (player.HasBuff("MaokaiSapMagicMelee") &&
-                player.Distance(target) < Orbwalking.GetRealAutoAttackRange(target) + 75)
+            if (player.HasBuff("MaokaiSapMagicMelee") && player.Distance(target) < Orbwalking.GetRealAutoAttackRange(target) + 75)
             {
                 return;
             }
-            if (getCheckBoxItem(comboMenu, "useq") && Q.CanCast(target) &&
-                getCheckBoxItem(comboMenu, "usee") &&
-                player.Distance(target) <= getSliderItem(comboMenu, "useqrange") &&
-                ((getCheckBoxItem(comboMenu, "useqroot") && !target.HasBuffOfType(BuffType.Snare) &&
-                  !target.HasBuffOfType(BuffType.Slow) && !target.HasBuffOfType(BuffType.Stun) &&
-                  !target.HasBuffOfType(BuffType.Suppression)) ||
-                 !getCheckBoxItem(comboMenu, "useqroot")))
+
+            if (getCheckBoxItem(comboMenu, "useq") && Q.CanCast(target) && getCheckBoxItem(comboMenu, "usee") && player.Distance(target) <= getSliderItem(comboMenu, "useqrange") && ((getCheckBoxItem(comboMenu, "useqroot") && !target.HasBuffOfType(BuffType.Snare) && !target.HasBuffOfType(BuffType.Slow) && !target.HasBuffOfType(BuffType.Stun) && !target.HasBuffOfType(BuffType.Suppression)) || !getCheckBoxItem(comboMenu, "useqroot")))
             {
                 Q.Cast(target, getCheckBoxItem(config, "packets"));
             }
+
             if (getCheckBoxItem(comboMenu, "usew"))
             {
-                if (getCheckBoxItem(comboMenu, "blocke") && player.Distance(target) < W.Range && W.IsReady() &&
-                    E.CanCast(target))
+                if (getCheckBoxItem(comboMenu, "blocke") && player.Distance(target) < W.Range && W.IsReady() && E.CanCast(target))
                 {
                     E.Cast(target, getCheckBoxItem(config, "packets"));
                     CastR(target);
@@ -196,10 +203,10 @@ namespace UnderratedAIO.Champions
                     W.Cast(target, getCheckBoxItem(config, "packets"));
                 }
             }
+
             if (getCheckBoxItem(comboMenu, "usee") && E.CanCast(target))
             {
-                if (!getCheckBoxItem(comboMenu, "blocke") ||
-                    getCheckBoxItem(comboMenu, "blocke") && !W.IsReady())
+                if (!getCheckBoxItem(comboMenu, "blocke") || getCheckBoxItem(comboMenu, "blocke") && !W.IsReady())
                 {
                     E.Cast(target, getCheckBoxItem(config, "packets"));
                 }
@@ -211,26 +218,20 @@ namespace UnderratedAIO.Champions
                                     player.CountEnemiesInRange(R.Range - 50);
                 var targetR = TargetSelector.GetTarget(R.Range, DamageType.Magical);
 
-                if (maoR && targetR != null &&
-                    ((getCheckBoxItem(comboMenu, "rks") &&
-                      player.LSGetSpellDamage(targetR, SpellSlot.R) +
-                      player.CalcDamage(target, DamageType.Magical, maoRStack) > targetR.Health) ||
-                     manaperc < getSliderItem(comboMenu, "rmana") ||
-                     (!enoughEnemies && player.Distance(targetR) > R.Range - 50)))
+                if (maoR && targetR != null && ((getCheckBoxItem(comboMenu, "rks") && player.LSGetSpellDamage(targetR, SpellSlot.R) + player.CalcDamage(target, DamageType.Magical, maoRStack) > targetR.Health) || manaperc < getSliderItem(comboMenu, "rmana") || (!enoughEnemies && player.Distance(targetR) > R.Range - 50)))
                 {
                     R.Cast(getCheckBoxItem(config, "packets"));
                 }
 
-                if (targetR != null && !maoR && manaperc > getSliderItem(comboMenu, "rmana") &&
-                    (enoughEnemies || R.IsInRange(targetR)))
+                if (targetR != null && !maoR && manaperc > getSliderItem(comboMenu, "rmana") && (enoughEnemies || R.IsInRange(targetR)))
                 {
                     R.Cast(getCheckBoxItem(config, "packets"));
                 }
             }
+
             var ignitedmg = (float) player.GetSummonerSpellDamage(target, Damage.SummonerSpell.Ignite);
             var hasIgnite = player.Spellbook.CanUseSpell(player.GetSpellSlot("SummonerDot")) == SpellState.Ready;
-            if (getCheckBoxItem(comboMenu, "useIgnite") && ignitedmg > target.Health && hasIgnite &&
-                !E.CanCast(target))
+            if (getCheckBoxItem(comboMenu, "useIgnite") && ignitedmg > target.Health && hasIgnite && !E.CanCast(target))
             {
                 player.Spellbook.CastSpell(player.GetSpellSlot("SummonerDot"), target);
             }
@@ -313,6 +314,7 @@ namespace UnderratedAIO.Champions
             comboMenu.Add("usew", new CheckBox("Use W"));
             comboMenu.Add("usee", new CheckBox("Use E"));
             comboMenu.Add("blocke", new CheckBox("EW Combo if possible"));
+            comboMenu.Add("cancelR", new CheckBox("Let Me Cancel R"));
             comboMenu.Add("user", new Slider("Use R min", 1, 1, 5));
             comboMenu.Add("rks", new CheckBox("R : Deactivate to KS target"));
             comboMenu.Add("rmana", new Slider("R : Deactivate min mana", 20));

@@ -106,6 +106,11 @@ namespace PortAIO
                     UniversalGankAlerter.Program.Main();
                 }
 
+                if (Loader.evade)
+                {
+                    new ezEvade.Evade();
+                }
+
                 /*
                 if (Loader.evade)
                 {

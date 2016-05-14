@@ -139,7 +139,7 @@ namespace ElTrundle
         {
             pillarPosition = Player.Position;
 
-            return V2E(pillarPosition, target.Position, target.Distance(pillarPosition) + 230).To3D();
+            return V2E(pillarPosition, target.Position, target.LSDistance(pillarPosition) + 208).To3D();
         }
 
         private static float IgniteDamage(AIHeroClient target)

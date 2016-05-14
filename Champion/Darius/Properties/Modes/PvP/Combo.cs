@@ -2,6 +2,7 @@ using System;
 using EloBuddy.SDK;
 using ExorAIO.Utilities;
 using LeagueSharp.Common;
+using EloBuddy;
 
 namespace ExorAIO.Champions.Darius
 {
@@ -34,13 +35,17 @@ namespace ExorAIO.Champions.Darius
                 Variables.E.Cast(Targets.Target);
             }
 
+            if (Variables.Q.IsCharging)
+            {
+                Orbwalker.OrbwalkTo(Game.CursorPos);
+            }
+
             /// <summary>
             /// The Q Combo Logic.
             /// </summary>
-            if (Variables.Q.IsReady() && Targets.Target.IsValidTarget(Variables.Q.Range) &&
-                Variables.getCheckBoxItem(Variables.QMenu, "qspell.combo"))
+            if (Variables.Q.IsReady() && Targets.Target.IsValidTarget(Variables.Q.Range) && Variables.getCheckBoxItem(Variables.QMenu, "qspell.combo"))
             {
-                Variables.Q.Cast();
+                Variables.Q.StartCharging();
             }
         }
     }

@@ -237,8 +237,7 @@ namespace VayneHunter_Reborn.Skills.Tumble
             
             if (Variables.spells[SpellSlot.R].IsEnabledAndReady(Orbwalker.ActiveModesFlags.ToString().ToLower()) && Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Combo))
             {
-                if (ObjectManager.Player.CountEnemiesInRange(750f) >=
-                    getSliderItem(MenuGenerator.comboMenu, "dz191.vhr.combo.r.minenemies"))
+                if (ObjectManager.Player.CountEnemiesInRange(750f) >= getSliderItem(MenuGenerator.comboMenu, "dz191.vhr.combo.r.minenemies"))
                 {
                     Variables.spells[SpellSlot.R].Cast();
                 }

@@ -192,7 +192,7 @@ namespace Viktor
                 {
                     EELO.SourcePosition = target.ServerPosition;
                     var prediction = EELO.GetPrediction(target);
-                    if (prediction.HitChance>= EloBuddy.SDK.Enumerations.HitChance.High)
+                    if (prediction.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High)
                     {
                         Player.CastSpell(SpellSlot.E, prediction.UnitPosition, target.ServerPosition);
                     }
@@ -327,7 +327,17 @@ namespace Viktor
             }
 
             if (useE)
-                PredictCastMinionE(getSliderItem(waveClear, "waveNumE"));
+            {
+                var minions = EntityManager.MinionsAndMonsters.Get(EntityManager.MinionsAndMonsters.EntityType.Minion, EntityManager.UnitTeam.Enemy, player.Position, EMaxRange, false);
+                foreach (var minion in minions)
+                {
+                    if (minions.Count() >= getSliderItem(waveClear, "waveNumE"))
+                    {
+                        var loc = EntityManager.MinionsAndMonsters.GetLineFarmLocation(minions, E.Width, EMaxRange);
+                        Player.CastSpell(SpellSlot.E, loc.CastPosition, minion.ServerPosition);
+                    }
+                }
+            }
         }
 
         private static void OnJungleClear()
@@ -348,7 +358,17 @@ namespace Viktor
             }
 
             if (useE)
-                PredictCastMinionEJungle();
+            {
+                var minions = EntityManager.MinionsAndMonsters.Get(EntityManager.MinionsAndMonsters.EntityType.Monster, EntityManager.UnitTeam.Both, player.Position, EMaxRange, false);
+                foreach (var minion in minions)
+                {
+                    if (minions.Count() >= getSliderItem(waveClear, "waveNumE"))
+                    {
+                        var loc = EntityManager.MinionsAndMonsters.GetLineFarmLocation(minions, E.Width, EMaxRange);
+                        Player.CastSpell(SpellSlot.E, loc.CastPosition, minion.ServerPosition);
+                    }
+                }
+            }
         }
 
 
