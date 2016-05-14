@@ -392,7 +392,7 @@
             {
                 return;
             }
-            Player.Spellbook.CastSpell(Flash, target.ServerPosition.LSExtend(pos, -(100 + target.BoundingRadius)));
+            Player.Spellbook.CastSpell(Flash, target.ServerPosition.LSExtend(pos, -(150 + target.BoundingRadius / 2)));
         }
 
         private static void CastW(bool isCombo = true, List<Obj_AI_Minion> minions = null)
@@ -608,7 +608,7 @@
                      Player.CalculateDamage(
                          hitTarget,
                          DamageType.Physical,
-                         new[] { 0.12, 0.15, 0.18 }[R.Level - 1] * kickTarget.MaxHealth);
+                         new[] { 0.12, 0.15, 0.18 }[R.Level - 1] * kickTarget.AllShield);
         }
 
         private static bool HaveE(Obj_AI_Base target)
@@ -1138,7 +1138,7 @@
                         if (!sender.IsMe || !getKeyBindItem(insecMenu, "Insec")
                             || !lastFlashPos.IsValid() || args.SData.Name != "SummonerFlash"
                             || !getCheckBoxItem(insecMenu, "Flash") || Variables.TickCount - lastFlashRTime > 1250
-                            || args.End.Distance(lastFlashPos) > 100)
+                            || args.End.Distance(lastFlashPos) > 150)
                         {
                             return;
                         }
@@ -1146,7 +1146,7 @@
                         var target = TargetSelector.SelectedTarget ?? TargetSelector.GetTarget(R.Range, DamageType.Physical);
                         if (target.LSIsValidTarget())
                         {
-                            DelayAction.Add(1, () => R.CastOnUnit(target));
+                            DelayAction.Add(5, () => R.CastOnUnit(target));
                         }
                     };
                 Obj_AI_Base.OnSpellCast += (sender, args) =>
@@ -1180,7 +1180,7 @@
                 if (R.IsInRange(target))
                 {
                     var posEnd = GetPositionKickTo(target);
-                    var posTarget = target.ServerPosition;
+                    var posTarget = target.Position;
                     var posPlayer = Player.ServerPosition;
                     if (posPlayer.Distance(posEnd) > posTarget.Distance(posEnd))
                     {
@@ -1274,6 +1274,7 @@
                 if (Orbwalker.CanMove)
                 {
                     lastMoveTime = Variables.TickCount;
+                    Orbwalker.MoveTo(posBehind.LSExtend(GetPositionKickTo(target), -(DistFlash + Player.BoundingRadius / 2))); // - might bug
                 }
                 lastFlashPos = posBehind;
                 lastEndPos = GetPositionAfterKick(target);
@@ -1471,7 +1472,7 @@
                             return;
                         }
                         var ward = args.Target as Obj_AI_Minion;
-                        if (ward == null || !ward.LSIsValid() || ward.Distance(lastPlacePos) > 100)
+                        if (ward == null || !ward.IsValid() || ward.Distance(lastPlacePos) > 150)
                         {
                             return;
                         }
@@ -1490,7 +1491,7 @@
                             return;
                         }
                         var ward = sender as Obj_AI_Minion;
-                        if (ward == null || !ward.IsWard() || ward.Distance(lastPlacePos) > 100)
+                        if (ward == null || !ward.IsWard() || ward.Distance(lastPlacePos) > 150)
                         {
                             return;
                         }

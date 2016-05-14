@@ -563,11 +563,7 @@
 
         private static void Evading(Obj_AI_Base sender)
         {
-            var skillshot =
-                Evade.SkillshotAboutToHit(sender, 50)
-                    .Where(i => i.CanDodge)
-                    .OrderByDescending(i => i.DangerLevel)
-                    .ToList();
+            var skillshot = Evade.SkillshotAboutToHit(sender, 50).OrderByDescending(i => i.DangerLevel).ToList();
             if (skillshot.Count == 0)
             {
                 return;
