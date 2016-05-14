@@ -96,7 +96,8 @@ namespace OneKeyToWin_AIO_Sebby
             eMenu = Config.AddSubMenu("E Option");
             eMenu.Add("smartE", new KeyBind("SmartCast E key", false, KeyBind.BindTypes.HoldActive, 'T'));
             eMenu.Add("smartEW", new KeyBind("SmartCast E + W key", false, KeyBind.BindTypes.HoldActive, 'T'));
-            eMenu.Add("autoE", new CheckBox("Auto E"));
+            eMenu.Add("EKsCombo", new CheckBox("E ks combo", true));
+            eMenu.Add("EAntiMelee", new CheckBox("E anti-melee", true));
             eMenu.Add("autoEgrab", new CheckBox("Auto E anti grab"));
 
             Dash = new OKTWdash(E);
@@ -181,7 +182,7 @@ namespace OneKeyToWin_AIO_Sebby
 
             if (E.IsReady())
             {
-                if (Program.LagFree(0) && getCheckBoxItem(eMenu, "autoE") && Program.Combo)
+                if (Program.LagFree(0))
                     LogicE();
 
                 if (getKeyBindItem(eMenu, "smartE"))
@@ -301,32 +302,33 @@ namespace OneKeyToWin_AIO_Sebby
         private static void LogicE()
         {
             var t = TargetSelector.GetTarget(1300, DamageType.Physical);
-            var dashPosition = Player.Position.Extend(Game.CursorPos, E.Range);
 
-            if (Program.Enemies.Any(target => target.IsValidTarget(300) && target.IsMelee))
+            if (getCheckBoxItem(eMenu, "EAntiMelee"))
             {
-                var dashPos = Dash.CastDash(true);
-                if (!dashPos.IsZero)
+                if (Program.Enemies.Any(target => target.IsValidTarget(1000) && target.IsMelee && Player.Distance(LeagueSharp.Common.Prediction.GetPrediction(target, 0.2f).CastPosition) < 250))
                 {
-                    E.Cast(dashPos);
+                    var dashPos = Dash.CastDash(true);
+                    if (!dashPos.IsZero)
+                    {
+                        E.Cast(dashPos);
+                    }
                 }
             }
 
-            if (t.IsValidTarget() && Player.HealthPercent > 40 && !Player.UnderTurret(true) &&
-                (Game.Time - OverKill > 0.3) && dashPosition.CountEnemiesInRange(900) < 3)
+            if (t.IsValidTarget() && Program.Combo && getCheckBoxItem(eMenu, "EKsCombo") && Player.HealthPercent > 40 && t.Distance(Game.CursorPos) + 300 < t.Position.Distance(Player.Position) && !SebbyLib.Orbwalking.InAutoAttackRange(t) && !Player.UnderTurret(true) && (Game.Time - OverKill > 0.3))
             {
-                if (t.Distance(Game.CursorPos) + 300 < t.Position.Distance(Player.Position) &&
-                    !Orbwalking.InAutoAttackRange(t))
+                var dashPosition = Player.Position.LSExtend(Game.CursorPos, E.Range);
+
+                if (dashPosition.CountEnemiesInRange(900) < 3)
                 {
                     var dmgCombo = 0f;
 
                     if (t.IsValidTarget(950))
                     {
-                        dmgCombo = Player.GetAutoAttackDamage(t) + E.GetDamage(t);
+                        dmgCombo = (float)Player.GetAutoAttackDamage(t) + E.GetDamage(t);
                     }
 
-                    if (Q.IsReady() && Player.Mana > QMANA + EMANA &&
-                        Q.WillHit(dashPosition.To3D(), Q.GetPrediction(t).UnitPosition))
+                    if (Q.IsReady() && Player.Mana > QMANA + EMANA && Q.WillHit(dashPosition, Q.GetPrediction(t).UnitPosition))
                         dmgCombo = Q.GetDamage(t);
 
                     if (W.IsReady() && Player.Mana > QMANA + EMANA + WMANA)
