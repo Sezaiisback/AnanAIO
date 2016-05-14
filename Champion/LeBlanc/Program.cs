@@ -588,7 +588,7 @@ namespace PopBlanc
 
         public static void AntiGapcloser_OnEnemyGapcloser(ActiveGapcloser gapcloser)
         {
-            if (!E.IsReady() || !getCheckBoxItem(eMenu, "AntiGapcloser") || gapcloser.Sender.IsMe)
+            if (!E.IsReady() || !getCheckBoxItem(eMenu, "AntiGapcloser") || gapcloser.Sender.IsMe || gapcloser.Sender.IsAlly)
             {
                 return;
             }

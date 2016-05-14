@@ -248,14 +248,11 @@ namespace OneKeyToWin_AIO_Sebby.Champions
 
                 if (Player.Mana > RMANA + QMANA)
                 {
-                    foreach (
-                        var enemy in
-                            Program.Enemies.Where(enemy => enemy.IsValidTarget(Q.Range) && !OktwCommon.CanMove(enemy)))
+                    foreach (var enemy in Program.Enemies.Where(enemy => enemy.IsValidTarget(Q.Range) && !OktwCommon.CanMove(enemy)))
                         Q.Cast(enemy);
                 }
             }
-            else if (Program.LaneClear && Player.ManaPercent > getSliderItem(farmMenu, "Mana") &&
-                     getCheckBoxItem(farmMenu, "farmQ"))
+            else if (Program.LaneClear && Player.ManaPercent > getSliderItem(farmMenu, "Mana") && getCheckBoxItem(farmMenu, "farmQ"))
             {
                 var allMinions = Cache.GetMinions(Player.ServerPosition, Q.Range);
                 var farmPos = Q.GetCircularFarmLocation(allMinions, 150);
