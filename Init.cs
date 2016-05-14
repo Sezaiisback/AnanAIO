@@ -298,7 +298,18 @@ namespace PortAIO
                         Mundo.Mundo.OnLoad();
                         break;
                     case "draven": // UltimaDraven
-                        RevampedDraven.Program.OnLoad();
+                        switch (Loader.draven)
+                        {
+                            case 0:
+                                RevampedDraven.Program.OnLoad();
+                                break;
+                            case 1:
+                                Tyler1.Program.Load();
+                                break;
+                            default:
+                                RevampedDraven.Program.OnLoad();
+                                break;
+                        }
                         break;
                     case "elise": // G-FUEL Elise
                         GFUELElise.Elise.OnGameLoad();

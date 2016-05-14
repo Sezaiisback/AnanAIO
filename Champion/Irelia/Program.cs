@@ -147,7 +147,7 @@ namespace Challenger_Series
                                 .FirstOrDefault(
                                     hero =>
                                         hero.IsEnemy && hero.IsValidTarget() && hero.Health < Q.GetDamage(hero) &&
-                                        hero.ServerPosition.Distance(ObjectManager.Player.ServerPosition) < 650);
+                                        hero.ServerPosition.LSDistance(ObjectManager.Player.ServerPosition) < 650);
                         if (killableEnemy != null && killableEnemy.IsValidTarget())
                         {
                             Q.Cast(killableEnemy);
@@ -157,7 +157,7 @@ namespace Challenger_Series
                         if (qMode == 0)
                         {
                             var distBetweenMeAndTarget =
-                                ObjectManager.Player.ServerPosition.Distance(target.ServerPosition);
+                                ObjectManager.Player.ServerPosition.LSDistance(target.ServerPosition);
                             if (distBetweenMeAndTarget > MinDistForQGapcloser)
                             {
                                 if (distBetweenMeAndTarget < 650)
@@ -173,13 +173,13 @@ namespace Challenger_Series
                                             ObjectManager.Get<Obj_AI_Minion>()
                                                 .Where(
                                                     m =>
-                                                        m.ServerPosition.Distance(ObjectManager.Player.ServerPosition) <
+                                                        m.ServerPosition.LSDistance(ObjectManager.Player.ServerPosition) <
                                                         650 &&
                                                         m.IsEnemy &&
-                                                        m.ServerPosition.Distance(target.ServerPosition) <
+                                                        m.ServerPosition.LSDistance(target.ServerPosition) <
                                                         distBetweenMeAndTarget && m.IsValidTarget() &&
                                                         m.Health < Q.GetDamage(m))
-                                                .OrderBy(m => m.Position.Distance(target.ServerPosition))
+                                                .OrderBy(m => m.Position.LSDistance(target.ServerPosition))
                                                 .FirstOrDefault();
                                         if (gapclosingMinion != null)
                                         {
@@ -192,12 +192,12 @@ namespace Challenger_Series
                                             ObjectManager.Get<Obj_AI_Minion>()
                                                 .Where(
                                                     m =>
-                                                        m.ServerPosition.Distance(ObjectManager.Player.ServerPosition) <
+                                                        m.ServerPosition.LSDistance(ObjectManager.Player.ServerPosition) <
                                                         650 && m.IsEnemy &&
-                                                        m.ServerPosition.Distance(target.ServerPosition) <
+                                                        m.ServerPosition.LSDistance(target.ServerPosition) <
                                                         distBetweenMeAndTarget &&
                                                         m.IsValidTarget() && m.Health < Q.GetDamage(m))
-                                                .OrderByDescending(m => m.Position.Distance(target.ServerPosition))
+                                                .OrderByDescending(m => m.Position.LSDistance(target.ServerPosition))
                                                 .FirstOrDefault();
                                         if (firstGapclosingMinion != null)
                                         {
@@ -210,7 +210,7 @@ namespace Challenger_Series
                         if (qMode == 1)
                         {
                             var distBetweenMeAndTarget =
-                                ObjectManager.Player.ServerPosition.Distance(target.ServerPosition);
+                                ObjectManager.Player.ServerPosition.LSDistance(target.ServerPosition);
                             if (distBetweenMeAndTarget < 650)
                             {
                                 Q.Cast(target);
@@ -221,12 +221,12 @@ namespace Challenger_Series
                                     ObjectManager.Get<Obj_AI_Minion>()
                                         .Where(
                                             m =>
-                                                m.ServerPosition.Distance(ObjectManager.Player.ServerPosition) <
+                                                m.ServerPosition.LSDistance(ObjectManager.Player.ServerPosition) <
                                                 650 && m.IsEnemy &&
-                                                m.ServerPosition.Distance(target.ServerPosition) <
+                                                m.ServerPosition.LSDistance(target.ServerPosition) <
                                                 distBetweenMeAndTarget &&
                                                 m.IsValidTarget() && m.Health < Q.GetDamage(m))
-                                        .OrderByDescending(m => m.Position.Distance(target.ServerPosition))
+                                        .OrderByDescending(m => m.Position.LSDistance(target.ServerPosition))
                                         .FirstOrDefault();
                                 if (firstGapclosingMinion != null)
                                 {
@@ -242,8 +242,8 @@ namespace Challenger_Series
                                 .FirstOrDefault(
                                     hero =>
                                         hero.IsEnemy && !hero.IsDead && hero.Health < E.GetDamage(hero) &&
-                                        hero.ServerPosition.Distance(ObjectManager.Player.ServerPosition) < 425 &&
-                                        hero.ServerPosition.Distance(ObjectManager.Player.ServerPosition) >
+                                        hero.ServerPosition.LSDistance(ObjectManager.Player.ServerPosition) < 425 &&
+                                        hero.ServerPosition.LSDistance(ObjectManager.Player.ServerPosition) >
                                         ObjectManager.Player.GetAutoAttackRange());
                         if (!Q.IsReady() && UseEKSBool)
                         {
@@ -259,7 +259,7 @@ namespace Challenger_Series
                             }
                             if (target.HealthPercent < ObjectManager.Player.HealthPercent &&
                                 target.MoveSpeed > ObjectManager.Player.MoveSpeed - 5 &&
-                                ObjectManager.Player.ServerPosition.Distance(target.ServerPosition) > 300)
+                                ObjectManager.Player.ServerPosition.LSDistance(target.ServerPosition) > 300)
                             {
                                 E.Cast(target);
                             }
@@ -282,8 +282,8 @@ namespace Challenger_Series
                             ObjectManager.Get<Obj_AI_Minion>()
                                 .FirstOrDefault(
                                     m =>
-                                        m.IsEnemy && m.Position.Distance(ObjectManager.Player.ServerPosition) < 650 &&
-                                        m.Position.Distance(ObjectManager.Player.Position) >
+                                        m.IsEnemy && m.Position.LSDistance(ObjectManager.Player.ServerPosition) < 650 &&
+                                        m.Position.LSDistance(ObjectManager.Player.Position) >
                                         ObjectManager.Player.AttackRange && m.IsValidTarget() &&
                                         m.Health < 25);
                         if (unkillableMinion != null)
@@ -298,7 +298,7 @@ namespace Challenger_Series
                             ObjectManager.Get<Obj_AI_Minion>()
                                 .FirstOrDefault(
                                     m =>
-                                        m.IsEnemy && m.Position.Distance(ObjectManager.Player.ServerPosition) < 650 &&
+                                        m.IsEnemy && m.Position.LSDistance(ObjectManager.Player.ServerPosition) < 650 &&
                                         m.IsValidTarget() && m.Health < Q.GetDamage(m));
                         if (killableMinion != null)
                         {

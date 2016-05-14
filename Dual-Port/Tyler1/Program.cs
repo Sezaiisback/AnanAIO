@@ -67,12 +67,7 @@ namespace Tyler1
             }
         }
 
-        static void Main(string[] args)
-        {
-            Events.OnLoad += Load;
-        }
-
-        private static void Load(object sender, EventArgs args)
+        public static void Load()
         {
             DelayAction.Add(1500, () =>
             {
@@ -353,19 +348,10 @@ namespace Tyler1
             }
             if (AutoCatch)
             {
-                foreach (
-                    var reticle in
-                        Reticles
-                            .Where(
-                                x => !x.Value.IsDead &&
-                                     (!x.Value.Position.IsUnderEnemyTurret() ||
-                                      (Mouse.IsUnderEnemyTurret() && ObjectManager.Player.IsUnderEnemyTurret())))
-                            .OrderBy(ret => ret.Key))
+                foreach (var reticle in Reticles.Where(x => !x.Value.IsDead && (!x.Value.Position.IsUnderEnemyTurret() || (Mouse.IsUnderEnemyTurret() && ObjectManager.Player.IsUnderEnemyTurret()))).OrderBy(ret => ret.Key))
                 {
                     var AXE = reticle.Value;
-                    if (OnlyCatchIfSafe &&
-                        GameObjects.EnemyHeroes.Count(
-                            e => e.IsHPBarRendered && e.IsMelee && e.ServerPosition.Distance(AXE.Position) < 350) >= 1)
+                    if (OnlyCatchIfSafe && GameObjects.EnemyHeroes.Count(e => e.IsHPBarRendered && e.IsMelee && e.ServerPosition.Distance(AXE.Position) < 350) >= 1)
                     {
                         break;
                     }
@@ -373,8 +359,7 @@ namespace Tyler1
                     {
                         Orbwalker.DisableMovement = false;
 
-                        if (GameObjects.EnemyHeroes.Count(
-                            e => e.IsHPBarRendered && e.IsMelee && e.ServerPosition.Distance(AXE.Position) < 350) >= 1)
+                        if (GameObjects.EnemyHeroes.Count(e => e.IsHPBarRendered && e.IsMelee && e.ServerPosition.Distance(AXE.Position) < 350) >= 1)
                         {
                             //user probably doesn't want to go there, try the next reticle
                             break;
@@ -382,9 +367,9 @@ namespace Tyler1
                         //maybe user just has potato reaction time
                         return;
                     }
-                    if (AXE.Distance(Player.ServerPosition) > 80 && Orbwalker.CanMove)
+                    if (AXE.Distance(Player.ServerPosition) > 70 && Orbwalker.CanMove)
                     {
-                        Orbwalker.MoveTo(AXE.Position.Randomize());
+                        Orbwalker.OrbwalkTo(AXE.Position.Randomize());
                         Orbwalker.DisableMovement = true;
                     }
                     if (AXE.Distance(Player.ServerPosition) <= 80)

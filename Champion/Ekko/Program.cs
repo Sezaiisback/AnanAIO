@@ -127,8 +127,8 @@ namespace PortAIO.Champion.Ekko
                             SebbyLib.Program.Enemies.Where(
                                 t =>
                                     t.IsValidTarget() &&
-                                    RMissile.Position.Distance(Prediction.GetPrediction(t, R.Delay).CastPosition) <
-                                    R.Range && RMissile.Position.Distance(t.ServerPosition) < R.Range))
+                                    RMissile.Position.LSDistance(Prediction.GetPrediction(t, R.Delay).CastPosition) <
+                                    R.Range && RMissile.Position.LSDistance(t.ServerPosition) < R.Range))
                     {
                         var comboDMG = OktwCommon.GetKsDamage(t, R);
 
@@ -174,7 +174,7 @@ namespace PortAIO.Champion.Ekko
             if (SebbyLib.Program.Combo && WMissile != null && WMissile.IsValid)
             {
                 if (WMissile.Position.CountEnemiesInRange(200) > 0 &&
-                    WMissile.Position.Distance(Player.ServerPosition) < 100)
+                    WMissile.Position.LSDistance(Player.ServerPosition) < 100)
                 {
                     E.Cast(Player.Position.Extend(WMissile.Position, E.Range), true);
                 }
@@ -185,7 +185,7 @@ namespace PortAIO.Champion.Ekko
             if (E.IsReady() && Player.Mana > RMANA + EMANA
                 && Player.CountEnemiesInRange(260) > 0
                 && Player.Position.Extend(Game.CursorPos, E.Range).CountEnemiesInRange(500) < 3
-                && t.Position.Distance(Game.CursorPos) > t.Position.Distance(Player.Position))
+                && t.Position.LSDistance(Game.CursorPos) > t.Position.LSDistance(Player.Position))
             {
                 E.Cast(Player.Position.Extend(Game.CursorPos, E.Range), true);
             }
@@ -195,7 +195,7 @@ namespace PortAIO.Champion.Ekko
                      && Player.Position.Extend(Game.CursorPos, E.Range).CountEnemiesInRange(700) < 3)
             {
                 if (t.IsValidTarget() && Player.Mana > QMANA + EMANA + WMANA &&
-                    t.Position.Distance(Game.CursorPos) + 300 < t.Position.Distance(Player.Position))
+                    t.Position.LSDistance(Game.CursorPos) + 300 < t.Position.LSDistance(Player.Position))
                 {
                     E.Cast(Player.Position.Extend(Game.CursorPos, E.Range), true);
                 }
@@ -312,7 +312,7 @@ namespace PortAIO.Champion.Ekko
                     }
                 }
 
-                if (SebbyLib.Program.Combo && W.GetPrediction(t).CastPosition.Distance(t.Position) > 200)
+                if (SebbyLib.Program.Combo && W.GetPrediction(t).CastPosition.LSDistance(t.Position) > 200)
                     SebbyLib.Program.CastSpell(W, t);
             }
             if (!SebbyLib.Program.None)

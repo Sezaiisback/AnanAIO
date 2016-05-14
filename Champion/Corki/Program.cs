@@ -313,7 +313,7 @@ namespace ElCorki
                 }
             }
 
-            if (Player.Distance(target) <= 600 && IgniteDamage(target) >= target.Health && useIgnite)
+            if (Player.LSDistance(target) <= 600 && IgniteDamage(target) >= target.Health && useIgnite)
             {
                 Player.Spellbook.CastSpell(_ignite, target);
             }

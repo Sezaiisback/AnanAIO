@@ -315,7 +315,7 @@ namespace KurisuMorgana
                     if (immobile)
                         _q.CastIfHitchanceEquals(itarget, HitChance.Immobile);
 
-                    if (dashing && itarget.Distance(Me.ServerPosition) <= 400f)
+                    if (dashing && itarget.LSDistance(Me.ServerPosition) <= 400f)
                         _q.CastIfHitchanceEquals(itarget, HitChance.Dashing);
                 }
             }
@@ -375,7 +375,7 @@ namespace KurisuMorgana
         {
             if (sender.IsEnemy && sender.Type == GameObjectType.AIHeroClient && _q.IsReady())
             {
-                if (args.End.IsValid() && args.End.Distance(Me.ServerPosition) <= 200 + Me.BoundingRadius)
+                if (args.End.IsValid() && args.End.LSDistance(Me.ServerPosition) <= 200 + Me.BoundingRadius)
                 {
                     var hero = sender as AIHeroClient;
                     if (!hero.IsValid<AIHeroClient>() || !hero.IsValidTarget(_q.Range - 50))
@@ -397,8 +397,8 @@ namespace KurisuMorgana
             foreach (var ally in HeroManager.Allies.Where(x => x.IsValidTarget(_e.Range)))
             {
                 var detectRange = ally.ServerPosition +
-                                  (args.End - ally.ServerPosition).Normalized()*ally.Distance(args.End);
-                if (detectRange.Distance(ally.ServerPosition) > ally.AttackRange - ally.BoundingRadius)
+                                  (args.End - ally.ServerPosition).Normalized()*ally.LSDistance(args.End);
+                if (detectRange.LSDistance(ally.ServerPosition) > ally.AttackRange - ally.BoundingRadius)
                     continue;
 
                 foreach (

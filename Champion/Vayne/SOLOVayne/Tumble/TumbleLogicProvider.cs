@@ -60,7 +60,7 @@ namespace SoloVayne.Skills.Tumble
                         t.Health + 15 <
                         ObjectManager.Player.LSGetAutoAttackDamage(t)*2 +
                         ObjectManager.Player.LSGetSpellDamage(t, SpellSlot.Q) &&
-                        t.Distance(ObjectManager.Player) < Orbwalking.GetRealAutoAttackRange(t) + 80f))
+                        t.LSDistance(ObjectManager.Player) < Orbwalking.GetRealAutoAttackRange(t) + 80f))
             {
                 var QPosition =
                     ObjectManager.Player.ServerPosition.LSExtend(
@@ -82,7 +82,7 @@ namespace SoloVayne.Skills.Tumble
                             t.Health + 15 <
                             ObjectManager.Player.LSGetAutoAttackDamage(t)*2 +
                             ObjectManager.Player.LSGetSpellDamage(t, SpellSlot.Q) &&
-                            t.Distance(ObjectManager.Player) < Orbwalking.GetRealAutoAttackRange(t) + 80f))
+                            t.LSDistance(ObjectManager.Player) < Orbwalking.GetRealAutoAttackRange(t) + 80f))
                 {
                     var QPosition =
                         ObjectManager.Player.ServerPosition.Extend(
@@ -121,7 +121,7 @@ namespace SoloVayne.Skills.Tumble
                 TumbleHelper.GetClosestEnemy(ObjectManager.Player.ServerPosition.LSExtend(Game.CursorPos, 300f));
 
             if (closeNonMeleeEnemy != null
-                && ObjectManager.Player.Distance(closeNonMeleeEnemy) <= closeNonMeleeEnemy.AttackRange - 85
+                && ObjectManager.Player.LSDistance(closeNonMeleeEnemy) <= closeNonMeleeEnemy.AttackRange - 85
                 && !closeNonMeleeEnemy.IsMelee)
             {
                 return ObjectManager.Player.ServerPosition.LSExtend(Game.CursorPos, 300f).IsSafeEx()
@@ -170,17 +170,17 @@ namespace SoloVayne.Skills.Tumble
                 if (alliesClose.Any() && enemiesNear.Any())
                 {
                     var closestMostHealth =
-                        alliesClose.OrderBy(m => m.Distance(ObjectManager.Player))
+                        alliesClose.OrderBy(m => m.LSDistance(ObjectManager.Player))
                             .ThenByDescending(m => m.Health)
                             .FirstOrDefault();
 
                     if (closestMostHealth != null
                         &&
-                        closestMostHealth.Distance(
-                            enemiesNear.OrderBy(m => m.Distance(ObjectManager.Player)).FirstOrDefault())
+                        closestMostHealth.LSDistance(
+                            enemiesNear.OrderBy(m => m.LSDistance(ObjectManager.Player)).FirstOrDefault())
                         >
-                        ObjectManager.Player.Distance(
-                            enemiesNear.OrderBy(m => m.Distance(ObjectManager.Player)).FirstOrDefault()))
+                        ObjectManager.Player.LSDistance(
+                            enemiesNear.OrderBy(m => m.LSDistance(ObjectManager.Player)).FirstOrDefault()))
                     {
                         var tempPosition =
                             ObjectManager.Player.ServerPosition.Extend(closestMostHealth.ServerPosition, 300f).To3D();
@@ -206,12 +206,12 @@ namespace SoloVayne.Skills.Tumble
                     if (NavMesh.IsWallOfGrass(position, 33)
                         &&
                         closeEnemies.All(
-                            m => m.Distance(position) > 340f && !NavMesh.IsWallOfGrass(m.ServerPosition, 40))
+                            m => m.LSDistance(position) > 340f && !NavMesh.IsWallOfGrass(m.ServerPosition, 40))
                         &&
                         !WardTrackerVariables.detectedWards.Any(
                             m =>
                                 NavMesh.IsWallOfGrass(m.Position, 33) &&
-                                m.Position.Distance(position) < m.WardTypeW.WardVisionRange &&
+                                m.Position.LSDistance(position) < m.WardTypeW.WardVisionRange &&
                                 !(m.WardTypeW.WardType == WardType.ShacoBox ||
                                   m.WardTypeW.WardType == WardType.TeemoShroom)))
                     {

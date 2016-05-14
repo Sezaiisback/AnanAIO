@@ -53,7 +53,7 @@ namespace ElRengarRevamped
                 ObjectManager.Get<Obj_AI_Base>()
                     .FirstOrDefault(
                         a =>
-                            a.IsValid<AIHeroClient>() && a.IsEnemy && a.Distance(Game.CursorPos) < a.BoundingRadius + 80 &&
+                            a.IsValid<AIHeroClient>() && a.IsEnemy && a.LSDistance(Game.CursorPos) < a.BoundingRadius + 80 &&
                             a.IsValidTarget());
             if (unit2 != null)
             {
@@ -131,7 +131,7 @@ namespace ElRengarRevamped
                       MenuInit.getBoxItem(MenuInit.comboMenu, "Combo.Prio") == 1 && Ferocity == 5))
                 {
                     var x = Prediction.GetPrediction(args.Target as Obj_AI_Base, Player.AttackCastDelay * 1000);
-                    if (Player.Position.To2D().Distance(x.UnitPosition.To2D())
+                    if (Player.Position.To2D().LSDistance(x.UnitPosition.To2D())
                         >= Player.BoundingRadius + Player.AttackRange + args.Target.BoundingRadius)
                     {
                         args.Process = false;
@@ -463,7 +463,7 @@ namespace ElRengarRevamped
 
                     if (RengarR)
                     {
-                        if (Ferocity == 5 && Player.Distance(target) <= spells[Spells.Q].Range)
+                        if (Ferocity == 5 && Player.LSDistance(target) <= spells[Spells.Q].Range)
                         {
                             spells[Spells.Q].Cast();
                         }
@@ -475,15 +475,15 @@ namespace ElRengarRevamped
 
                     if (Ferocity <= 4)
                     {
-                        if (Player.Distance(target) <= spells[Spells.Q].Range)
+                        if (Player.LSDistance(target) <= spells[Spells.Q].Range)
                         {
                             spells[Spells.Q].Cast();
                         }
-                        if (Player.Distance(target) <= spells[Spells.W].Range)
+                        if (Player.LSDistance(target) <= spells[Spells.W].Range)
                         {
                             spells[Spells.W].Cast();
                         }
-                        if (Player.Distance(target) <= spells[Spells.E].Range)
+                        if (Player.LSDistance(target) <= spells[Spells.E].Range)
                         {
                             spells[Spells.E].Cast(target);
                         }
@@ -509,7 +509,7 @@ namespace ElRengarRevamped
 
                     if (Ferocity == 5 && RengarR)
                     {
-                        if (target.Distance(Player.ServerPosition)
+                        if (target.LSDistance(Player.ServerPosition)
                             <= MenuInit.getSliderItem(MenuInit.betaMenu, "Beta.searchrange.Q"))
                         {
                             Utility.DelayAction.Add(

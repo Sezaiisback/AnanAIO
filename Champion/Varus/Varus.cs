@@ -136,7 +136,7 @@ namespace Elvarus
             if (spells[Spells.Q].IsReady() && comboQ)
             {
                 if (spells[Spells.Q].IsCharging || alwaysQ
-                    || target.Distance(Player) > Orbwalking.GetRealAutoAttackRange(target) * 1.2f
+                    || target.LSDistance(Player) > Orbwalking.GetRealAutoAttackRange(target) * 1.2f
                     || GetWStacks(target) >= stackCount
                     || spells[Spells.Q].IsKillable(target))
                 {
@@ -162,7 +162,7 @@ namespace Elvarus
                 var pred = spells[Spells.R].GetPrediction(target);
                 if (pred.Hitchance >= HitChance.VeryHigh)
                 {
-                    var ultimateHits = HeroManager.Enemies.Where(x => x.Distance(target) <= 450f).ToList();
+                    var ultimateHits = HeroManager.Enemies.Where(x => x.LSDistance(target) <= 450f).ToList();
                     if (ultimateHits.Count >= rCount)
                     {
                         spells[Spells.R].Cast(pred.CastPosition);
@@ -306,7 +306,7 @@ namespace Elvarus
                         HeroManager.Enemies.Where(
                             enemy =>
                                 enemy.IsValidTarget() && spells[Spells.Q].IsKillable(enemy) &&
-                                Player.Distance(enemy.Position) <= spells[Spells.Q].ChargedMaxRange))
+                                Player.LSDistance(enemy.Position) <= spells[Spells.Q].ChargedMaxRange))
                 {
                     if (!spells[Spells.Q].IsCharging)
                     {

@@ -71,7 +71,7 @@ namespace ElUtilitySuite.Items.OffensiveItems
 
         public override bool ShouldUseItem()
         {
-            return getCheckBoxItem("Youmuucombo") && ComboModeActive && HeroManager.Enemies.Any(x => x.Distance(ObjectManager.Player) < Orbwalking.GetRealAutoAttackRange(ObjectManager.Player));
+            return getCheckBoxItem("Youmuucombo") && ComboModeActive && HeroManager.Enemies.Any(x => x.LSDistance(ObjectManager.Player) < Orbwalking.GetRealAutoAttackRange(ObjectManager.Player));
         }
 
         #endregion

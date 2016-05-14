@@ -318,7 +318,7 @@ namespace ElZilean
             {
                 if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Combo))
                 {
-                    args.Process = !(spells[Spells.Q].IsReady() || Player.Distance(args.Target) >= 1000);
+                    args.Process = !(spells[Spells.Q].IsReady() || Player.LSDistance(args.Target) >= 1000);
                 }
             }
 
@@ -361,7 +361,7 @@ namespace ElZilean
                     && (hero.Health / hero.MaxHealth * 100
                         <= getSliderItem(castUltMenu, "ElZilean.Ally.HP"))
                     && spells[Spells.R].IsReady() && Player.CountEnemiesInRange(1000) > 0
-                    && (hero.Distance(Player.ServerPosition) <= spells[Spells.R].Range))
+                    && (hero.LSDistance(Player.ServerPosition) <= spells[Spells.R].Range))
                 {
                     if (castUltMenu["ElZilean.Cast.Ult.Ally" + hero.CharData.BaseSkinName] != null &&
                         getCheckBoxItem(castUltMenu, "ElZilean.Cast.Ult.Ally" + hero.CharData.BaseSkinName))

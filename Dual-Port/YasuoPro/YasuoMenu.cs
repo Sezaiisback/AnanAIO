@@ -2,6 +2,9 @@
 using System.Linq;
 using LeagueSharp.Common;
 using EloBuddy.SDK.Menu;
+using EloBuddy.SDK;
+using Valvrave_Sharp.Core;
+using Valvrave_Sharp.Evade;
 
 namespace YasuoPro
 {
@@ -21,9 +24,6 @@ namespace YasuoPro
 
             HarassM = Config.AddSubMenu("Harass");
             YasuoMenu.Harass.Attach(HarassM);
-
-            EvadeM = Config.AddSubMenu("Evade");
-            YasuoMenu.Evade.Attach(EvadeM);
 
             KillstealM = Config.AddSubMenu("Killsteal");
             YasuoMenu.Killsteal.Attach(KillstealM);
@@ -149,41 +149,6 @@ namespace YasuoPro
                 menu.AddBool("Killsteal.UseItems", "Use Items");
             }
         }
-
-
-        struct Evade
-        {
-            internal static void Attach(Menu menu)
-            {
-                menu.AddGroupLabel("Targetted Spells");
-
-                foreach (var spell in TargettedDanger.spellList.Where(x => HeroManager.Enemies.Any(e => e.CharData.BaseSkinName == x.championName)))
-                {
-                    menu.AddBool("enabled." + spell.spellName, spell.spellName + " (" + spell.championName + ")", true);
-                    menu.AddSlider("enabled." + spell.spellName + ".delay", spell.spellName + " Delay", 0, 0, 1000);
-                    menu.AddSeparator();
-                }
-
-                menu.AddGroupLabel("Experimental Spells");
-                foreach (var spell in TargettedDanger.spellList.Where(x => HeroManager.Enemies.Any(e => x.championName == "Baron")))
-                {
-                    menu.AddBool("enabled." + spell.spellName, spell.spellName + " (" + spell.championName + ")", true);
-                }
-                menu.AddSeparator();
-                menu.AddBool("Evade.Enabled", "Evade Enabled");
-                menu.AddBool("Evade.OnlyDangerous", "Evade only Dangerous", false);
-                menu.AddBool("Evade.FOW", "Dodge FOW Skills");
-                menu.AddBool("Evade.WTS", "Windwall Targetted");
-                menu.AddBool("Evade.WSS", "Windwall Skillshots");
-                menu.AddBool("Evade.UseW", "Evade with Windwall");
-                menu.AddBool("Evade.UseE", "Evade with E");
-                menu.AddSeparator();
-                menu.AddSlider("Evade.MinDangerLevelWW", "Min Danger Level WindWall", 1, 1, 5);
-                menu.AddSlider("Evade.MinDangerLevelE", "Min Danger Level Dash", 1, 1, 5);
-                menu.AddSlider("Evade.Delay", "Windwall Base Delay", 0, 0, 1000);
-            }
-        }
-
 
         struct Misc
         {

@@ -40,9 +40,9 @@ namespace Jhin___The_Virtuoso.Modes
                     var enemy in
                         HeroManager.Enemies.Where(
                             x =>
-                                x.Distance(ObjectManager.Player) <
+                                x.LSDistance(ObjectManager.Player) <
                                 Menus.getSliderItem(Menus.wMenu, "w.combo.max.distance") &&
-                                x.Distance(ObjectManager.Player) >
+                                x.LSDistance(ObjectManager.Player) >
                                 Menus.getSliderItem(Menus.wMenu, "w.combo.min.distance") && x.IsValid &&
                                 Spells.W.GetPrediction(x).Hitchance >= Menus.wMenu.HikiChance("w.hit.chance") &&
                                 x.Health < Spells.W.GetDamage(x) && !x.IsDead && !x.IsZombie && x.IsValid))
@@ -63,7 +63,7 @@ namespace Jhin___The_Virtuoso.Modes
                             .Where(
                                 x =>
                                     x.Team != ObjectManager.Player.Team &&
-                                    x.Distance(ObjectManager.Player) < Spells.E.Range
+                                    x.LSDistance(ObjectManager.Player) < Spells.E.Range
                                     && x.HasBuff("teleport_target") && !x.IsDead && !x.IsZombie))
                 {
                     Spells.E.Cast(obj);

@@ -68,13 +68,13 @@ namespace iDZed.Utils
         public static Vector3 GetBestPosition(AIHeroClient target, Vector3 firstPosition, Vector3 secondPosition)
         {
             if (firstPosition.IsWall() && !secondPosition.IsWall() &&
-                secondPosition.Distance(target.ServerPosition) < firstPosition.Distance(target.ServerPosition))
+                secondPosition.LSDistance(target.ServerPosition) < firstPosition.LSDistance(target.ServerPosition))
                 // if firstposition is a wall and second position isn't
             {
                 return secondPosition; //return second position
             }
             if (secondPosition.IsWall() && !firstPosition.IsWall() &&
-                firstPosition.Distance(target.ServerPosition) < secondPosition.Distance(target.ServerPosition))
+                firstPosition.LSDistance(target.ServerPosition) < secondPosition.LSDistance(target.ServerPosition))
                 // if secondPosition is a wall and first position isn't
             {
                 return firstPosition; // return first position

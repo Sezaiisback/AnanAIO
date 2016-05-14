@@ -204,7 +204,7 @@ namespace ElTristana
                 return;
             }
 
-            if (sender.Distance(Player) <= spells[Spells.R].Range)
+            if (sender.LSDistance(Player) <= spells[Spells.R].Range)
             {
                 spells[Spells.R].Cast(sender);
             }
@@ -476,7 +476,7 @@ namespace ElTristana
             {
                 foreach (var tower in ObjectManager.Get<Obj_AI_Turret>())
                 {
-                    if (!tower.IsDead && tower.Health > 100 && tower.IsEnemy && tower.IsValidTarget() && Player.ServerPosition.Distance(tower.ServerPosition) < Orbwalking.GetRealAutoAttackRange(Player))
+                    if (!tower.IsDead && tower.Health > 100 && tower.IsEnemy && tower.IsValidTarget() && Player.ServerPosition.LSDistance(tower.ServerPosition) < Orbwalking.GetRealAutoAttackRange(Player))
                     {
                         spells[Spells.E].Cast(tower);
                     }

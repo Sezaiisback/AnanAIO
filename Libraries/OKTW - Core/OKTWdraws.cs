@@ -414,7 +414,7 @@ namespace OneKeyToWin_AIO_Sebby.Core
                     //Drawing.DrawText(posX - 70, posY + positionDraw, kolor, enemy.Level + " lvl");
                 }
 
-                var Distance = Player.Distance(enemy.Position);
+                var Distance = Player.LSDistance(enemy.Position);
                 if (GankAlert && !enemy.IsDead && Distance > 1200)
                 {
                     var wts =

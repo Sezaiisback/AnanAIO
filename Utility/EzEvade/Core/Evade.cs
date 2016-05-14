@@ -11,6 +11,7 @@ using EloBuddy.SDK.Menu;
 using EloBuddy.SDK.Menu.Values;
 using EzEvade;
 using SharpDX;
+using LeagueSharp.Common;
 
 // Credits to Rexy for porting this, I didn't use this much but some of the methods helped a lot.
 
@@ -355,7 +356,7 @@ namespace ezEvade
                         args.Process = false; //Block the command
 
                         if (EvadeUtils.TickCount - lastMovementBlockTime < 500 &&
-                            lastMovementBlockPos.Distance(args.TargetPosition) < 100)
+                            lastMovementBlockPos.LSDistance(args.TargetPosition) < 100)
                         {
                             return;
                         }
@@ -390,7 +391,7 @@ namespace ezEvade
                         if (target != null && target.GetType() == typeof(Obj_AI_Base) && ((Obj_AI_Base)target).IsValid())
                         {
                             var baseTarget = target as Obj_AI_Base;
-                            if (ObjectCache.myHeroCache.serverPos2D.Distance(baseTarget.ServerPosition.To2D()) >
+                            if (ObjectCache.myHeroCache.serverPos2D.LSDistance(baseTarget.ServerPosition.To2D()) >
                                 myHero.AttackRange + ObjectCache.myHeroCache.boundingRadius + baseTarget.BoundingRadius)
                             {
                                 var movePos = args.TargetPosition.To2D();
@@ -442,7 +443,7 @@ namespace ezEvade
 
             /*if (args.SData.Name.Contains("Recall"))
             {
-                var distance = lastStopPosition.Distance(args.Start.To2D());
+                var distance = lastStopPosition.LSDistance(args.Start.To2D());
                 float moveTime = 1000 * distance / myHero.MoveSpeed;
 
                 Console.WriteLine("Extra dist: " + distance + " Extra Delay: " + moveTime);
@@ -477,7 +478,7 @@ namespace ezEvade
             ObjectCache.myHeroCache.UpdateInfo();
             CheckHeroInDanger();
 
-            if (isChanneling && channelPosition.Distance(ObjectCache.myHeroCache.serverPos2D) > 50
+            if (isChanneling && channelPosition.LSDistance(ObjectCache.myHeroCache.serverPos2D) > 50
                 ) //TODO: !myHero.IsChannelingImportantSpell()
             {
                 isChanneling = false;
@@ -509,7 +510,7 @@ namespace ezEvade
                     {
                         var movePos = path.Last().To2D();
 
-                        if (movePos.Distance(lastPosInfo.position) < 5) //more strict checking
+                        if (movePos.LSDistance(lastPosInfo.position) < 5) //more strict checking
                         {
                             var posInfo = EvadeHelper.CanHeroWalkToPos(movePos, ObjectCache.myHeroCache.moveSpeed, 0, 0,
                                 false);
@@ -630,7 +631,7 @@ namespace ezEvade
                     Vector2 lastBestPosition = lastPosInfo.position;
 
                     if (ObjectCache.menuCache.cache["ClickOnlyOnce"].Cast<CheckBox>().CurrentValue == false
-                        || !(myHero.Path.Count() > 0 && lastPosInfo.position.Distance(myHero.Path.Last().To2D()) < 5))
+                        || !(myHero.Path.Count() > 0 && lastPosInfo.position.LSDistance(myHero.Path.Last().To2D()) < 5))
                     //|| lastPosInfo.timestamp > lastEvadeOrderTime)
                     {
                         EvadeCommand.MoveTo(lastBestPosition);
@@ -769,7 +770,7 @@ namespace ezEvade
                     {
                         lastPosInfo = posInfo.CompareLastMovePos();
 
-                        var travelTime = ObjectCache.myHeroCache.serverPos2DPing.Distance(lastPosInfo.position) /
+                        var travelTime = ObjectCache.myHeroCache.serverPos2DPing.LSDistance(lastPosInfo.position) /
                                          myHero.MoveSpeed;
 
                         lastPosInfo.endTime = EvadeUtils.TickCount + travelTime * 1000 - 100;

@@ -442,7 +442,7 @@ namespace PortAIO.Champion.Aatrox
                 var item = Hydra.IsReady() ? Hydra : Tiamat;
                 if (item.IsReady() &&
                     (minionObj.Count(i => item.IsInRange(i)) > 2 ||
-                     minionObj.Any(i => i.MaxHealth >= 1200 && i.Distance(myHero) < item.Range - 80)))
+                     minionObj.Any(i => i.MaxHealth >= 1200 && i.LSDistance(myHero) < item.Range - 80)))
                 {
                     item.Cast();
                 }

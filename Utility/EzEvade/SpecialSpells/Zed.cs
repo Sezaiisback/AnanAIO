@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using EloBuddy;
 using EloBuddy.SDK;
 using SharpDX;
+using LeagueSharp.Common;
 
 namespace ezEvade.SpecialSpells
 {
@@ -40,7 +41,7 @@ namespace ezEvade.SpecialSpells
                     {
                         var info = entry.Value;
 
-                        if (info.Name == "Shadow" && info.usePosition && info.position.Distance(obj.Position) < 5)
+                        if (info.Name == "Shadow" && info.usePosition && info.position.LSDistance(obj.Position) < 5)
                         {
                             info.usePosition = false;
                             info.obj = obj;

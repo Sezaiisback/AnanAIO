@@ -79,7 +79,7 @@ namespace ElUtilitySuite.Items.OffensiveItems
                    && HeroManager.Enemies.Any(
                        x =>
                        x.HealthPercent < getSliderItem("HextechEnemyHp")
-                       && x.Distance(ObjectManager.Player) < 700 && !x.IsDead && !x.IsZombie);
+                       && x.LSDistance(ObjectManager.Player) < 700 && !x.IsDead && !x.IsZombie);
         }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace ElUtilitySuite.Items.OffensiveItems
         /// </summary>
         public override void UseItem()
         {
-            LeagueSharp.Common.Items.UseItem((int)Id, HeroManager.Enemies.FirstOrDefault(x => x.HealthPercent < getSliderItem("HextechEnemyHp") && x.Distance(ObjectManager.Player) < 700 && !x.IsDead && !x.IsZombie));
+            LeagueSharp.Common.Items.UseItem((int)Id, HeroManager.Enemies.FirstOrDefault(x => x.HealthPercent < getSliderItem("HextechEnemyHp") && x.LSDistance(ObjectManager.Player) < 700 && !x.IsDead && !x.IsZombie));
         }
 
         #endregion

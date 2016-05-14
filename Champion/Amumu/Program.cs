@@ -94,8 +94,8 @@ namespace PortAIO.Champion.Amumu
 
             if (getKeyBindItem(miscMenu, "aimQ"))
                 CastQ(
-                    Helper.EnemyTeam.Where(x => x.IsValidTarget(_spellQ.Range) && x.Distance(Game.CursorPos) < 400)
-                        .OrderBy(x => x.Distance(Game.CursorPos))
+                    Helper.EnemyTeam.Where(x => x.IsValidTarget(_spellQ.Range) && x.LSDistance(Game.CursorPos) < 400)
+                        .OrderBy(x => x.LSDistance(Game.CursorPos))
                         .FirstOrDefault());
 
             if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Combo))
@@ -126,7 +126,7 @@ namespace PortAIO.Champion.Amumu
                     var prediction = Prediction.GetPrediction(enemy, _spellR.Delay);
 
                     if (prediction != null &&
-                        prediction.UnitPosition.Distance(ObjectManager.Player.ServerPosition) <= _spellR.Range)
+                        prediction.UnitPosition.LSDistance(ObjectManager.Player.ServerPosition) <= _spellR.Range)
                     {
                         enemiesHit++;
 
@@ -146,7 +146,7 @@ namespace PortAIO.Champion.Amumu
             if (!_spellE.IsReady() || target == null || !target.IsValidTarget())
                 return;
 
-            if (_spellE.GetPrediction(target).UnitPosition.Distance(ObjectManager.Player.ServerPosition) <=
+            if (_spellE.GetPrediction(target).UnitPosition.LSDistance(ObjectManager.Player.ServerPosition) <=
                 _spellE.Range)
                 _spellE.CastOnUnit(ObjectManager.Player);
         }
@@ -212,7 +212,7 @@ namespace PortAIO.Champion.Amumu
 
                     if (ObjectManager.Player.Spellbook.GetSpell(SpellSlot.W).ToggleState == 1)
                     {
-                        if (ObjectManager.Player.Distance(target.ServerPosition) <= _spellW.Range && enoughMana)
+                        if (ObjectManager.Player.LSDistance(target.ServerPosition) <= _spellW.Range && enoughMana)
                         {
                             _comboW = true;
                             _spellW.Cast();
@@ -226,7 +226,7 @@ namespace PortAIO.Champion.Amumu
             }
 
             if (comboE && _spellE.IsReady())
-                CastE(Helper.EnemyTeam.OrderBy(x => x.Distance(ObjectManager.Player)).FirstOrDefault(x => _spellE.IsInRange(x)));
+                CastE(Helper.EnemyTeam.OrderBy(x => x.LSDistance(ObjectManager.Player)).FirstOrDefault(x => _spellE.IsInRange(x)));
         }
 
         private static void LaneClear()
@@ -253,7 +253,7 @@ namespace PortAIO.Champion.Amumu
             {
                 minions = MinionManager.GetMinions(ObjectManager.Player.ServerPosition, _spellE.Range, MinionTypes.All,
                     MinionTeam.NotAlly);
-                CastE(minions.OrderBy(x => x.Distance(ObjectManager.Player)).FirstOrDefault());
+                CastE(minions.OrderBy(x => x.LSDistance(ObjectManager.Player)).FirstOrDefault());
             }
 
             if (!farmW || !_spellW.IsReady())

@@ -61,7 +61,7 @@ namespace iLucian
                 return;
             }
 
-            if (!gapcloser.Sender.IsEnemy || !(gapcloser.End.Distance(ObjectManager.Player.ServerPosition) < 350))
+            if (!gapcloser.Sender.IsEnemy || !(gapcloser.End.LSDistance(ObjectManager.Player.ServerPosition) < 350))
                 return;
 
             var extendedPosition = ObjectManager.Player.ServerPosition.LSExtend(Game.CursorPos,
@@ -112,7 +112,7 @@ namespace iLucian
                     }
                     else
                     {
-                        if (target.Distance(ObjectManager.Player) < 600)
+                        if (target.LSDistance(ObjectManager.Player) < 600)
                         {
                             Variables.Spell[Variables.Spells.W].Cast(target.Position);
                         }
@@ -150,7 +150,7 @@ namespace iLucian
                     }
                     else
                     {
-                        if (target.Distance(ObjectManager.Player) < 600)
+                        if (target.LSDistance(ObjectManager.Player) < 600)
                         {
                             Variables.Spell[Variables.Spells.W].Cast(target.Position);
                         }
@@ -205,7 +205,7 @@ namespace iLucian
             var dashSpeed = (int)(Variables.Spell[Variables.Spells.E].Range / (700 + ObjectManager.Player.MoveSpeed));
             var extendedPrediction = GetExtendedPrediction(target, dashSpeed);
 
-            var minions = ObjectManager.Get<Obj_AI_Minion>().Where(x => x.IsEnemy && x.IsValid && x.Distance(extendedPrediction, true) < 900 * 900).OrderByDescending(x => x.Distance(extendedPrediction));
+            var minions = ObjectManager.Get<Obj_AI_Minion>().Where(x => x.IsEnemy && x.IsValid && x.LSDistance(extendedPrediction, true) < 900 * 900).OrderByDescending(x => x.LSDistance(extendedPrediction));
 
             foreach (var minion in minions.Select(x => LeagueSharp.Common.Prediction.GetPrediction(x, dashSpeed)).Select(pred => MathHelper.GetCicleLineInteraction(pred.UnitPosition.To2D(), extendedPrediction.To2D(), ObjectManager.Player.ServerPosition.To2D(), Variables.Spell[Variables.Spells.E].Range)).Select(inter => inter.GetBestInter(target)))
             {
@@ -351,7 +351,7 @@ namespace iLucian
             }
             else
             {
-                if (target.Distance(ObjectManager.Player) < 600)
+                if (target.LSDistance(ObjectManager.Player) < 600)
                 {
                     Variables.Spell[Variables.Spells.W].Cast(target.Position);
                 }
@@ -391,7 +391,7 @@ namespace iLucian
                     }
                     else
                     {
-                        if (target.Distance(ObjectManager.Player) < 600)
+                        if (target.LSDistance(ObjectManager.Player) < 600)
                         {
                             Variables.Spell[Variables.Spells.W].Cast(target.Position);
                         }
@@ -442,13 +442,13 @@ namespace iLucian
 
                 if (bestLocation.MinionsHit < getSliderItem(MenuGenerator.laneclearOptions, "com.ilucian.laneclear.qMinions"))
                     return;
-                var adjacentMinions = minions.Where(m => m.Distance(bestLocation.Position) <= 45).ToList();
+                var adjacentMinions = minions.Where(m => m.LSDistance(bestLocation.Position) <= 45).ToList();
                 if (!adjacentMinions.Any())
                 {
                     return;
                 }
 
-                var firstMinion = adjacentMinions.OrderBy(m => m.Distance(bestLocation.Position)).First();
+                var firstMinion = adjacentMinions.OrderBy(m => m.LSDistance(bestLocation.Position)).First();
 
                 if (!firstMinion.IsValidTarget(Variables.Spell[Variables.Spells.Q].Range))
                     return;
@@ -476,9 +476,9 @@ namespace iLucian
                     if (ObjectManager.Player.HealthPercent <= 70 &&
                         target.HealthPercent >= ObjectManager.Player.HealthPercent)
                     {
-                        if (ObjectManager.Player.Position.Distance(ObjectManager.Player.ServerPosition) >= 35 &&
-                            target.Distance(ObjectManager.Player.ServerPosition) <
-                            target.Distance(ObjectManager.Player.Position) &&
+                        if (ObjectManager.Player.Position.LSDistance(ObjectManager.Player.ServerPosition) >= 35 &&
+                            target.LSDistance(ObjectManager.Player.ServerPosition) <
+                            target.LSDistance(ObjectManager.Player.Position) &&
                             hypotheticalPosition.IsSafe(Variables.Spell[Variables.Spells.E].Range))
                         {
                             Variables.Spell[Variables.Spells.E].Cast(hypotheticalPosition);
@@ -486,8 +486,8 @@ namespace iLucian
                     }
 
                     if (hypotheticalPosition.IsSafe(Variables.Spell[Variables.Spells.E].Range) &&
-                        hypotheticalPosition.Distance(target.ServerPosition) <= Orbwalking.GetRealAutoAttackRange(null) &&
-                        (hypotheticalPosition.Distance(target.ServerPosition) > 400) && !Variables.HasPassive)
+                        hypotheticalPosition.LSDistance(target.ServerPosition) <= Orbwalking.GetRealAutoAttackRange(null) &&
+                        (hypotheticalPosition.LSDistance(target.ServerPosition) > 400) && !Variables.HasPassive)
                     {
                         Variables.Spell[Variables.Spells.E].Cast(hypotheticalPosition);
                     }
@@ -541,7 +541,7 @@ namespace iLucian
             }
 
             var target = TargetSelector.SelectedTarget != null &&
-                         TargetSelector.SelectedTarget.Distance(ObjectManager.Player) < 1800
+                         TargetSelector.SelectedTarget.LSDistance(ObjectManager.Player) < 1800
                 ? TargetSelector.SelectedTarget
                 : TargetSelector.GetTarget(Variables.Spell[Variables.Spells.Q2].Range,
                     DamageType.Physical);
@@ -565,7 +565,7 @@ namespace iLucian
             var unitList = new List<Obj_AI_Base>();
             var minions = MinionManager.GetMinions(ObjectManager.Player.Position,
                 Variables.Spell[Variables.Spells.Q].Range);
-            var champions = HeroManager.Enemies.Where(x => ObjectManager.Player.Distance(x) <= Variables.Spell[Variables.Spells.Q].Range && !x.HasBuffOfType(BuffType.SpellShield));
+            var champions = HeroManager.Enemies.Where(x => ObjectManager.Player.LSDistance(x) <= Variables.Spell[Variables.Spells.Q].Range && !x.HasBuffOfType(BuffType.SpellShield));
 
             unitList.AddRange(minions);
             if (getCheckBoxItem(MenuGenerator.miscOptions, "com.ilucian.misc.extendChamps"))

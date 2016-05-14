@@ -180,7 +180,7 @@ namespace ElVi
                 }
                 else
                 {
-                    if (minions.Count == minions.Count(x => Player.Distance(x) < Spells[ElVi.Spells.Q].Range))
+                    if (minions.Count == minions.Count(x => Player.LSDistance(x) < Spells[ElVi.Spells.Q].Range))
                     {
                         Spells[ElVi.Spells.Q].Cast(minions[0]);
                     }
@@ -190,7 +190,7 @@ namespace ElVi
             if (useE && Spells[ElVi.Spells.E].IsReady())
             {
                 var bestFarmPos = Spells[ElVi.Spells.E].GetLineFarmLocation(minions);
-                if (minions.Count == minions.Count(x => Player.Distance(x) < Spells[ElVi.Spells.E].Range) &&
+                if (minions.Count == minions.Count(x => Player.LSDistance(x) < Spells[ElVi.Spells.E].Range) &&
                     bestFarmPos.Position.IsValid() && bestFarmPos.MinionsHit > 1)
                 {
                     Spells[ElVi.Spells.E].Cast();
@@ -226,7 +226,7 @@ namespace ElVi
                 else
                 {
                     var bestFarmPos = Spells[ElVi.Spells.Q].GetLineFarmLocation(minions);
-                    if (minions.Count == minions.Count(x => Player.Distance(x) < Spells[ElVi.Spells.Q].Range) &&
+                    if (minions.Count == minions.Count(x => Player.LSDistance(x) < Spells[ElVi.Spells.Q].Range) &&
                         bestFarmPos.Position.IsValid() && bestFarmPos.MinionsHit > 2)
                     {
                         Spells[ElVi.Spells.Q].Cast(bestFarmPos.Position);
@@ -237,7 +237,7 @@ namespace ElVi
             if (useE && Spells[ElVi.Spells.E].IsReady())
             {
                 var bestFarmPos = Spells[ElVi.Spells.E].GetLineFarmLocation(minions);
-                if (minions.Count == minions.Count(x => Player.Distance(x) < Spells[ElVi.Spells.E].Range) &&
+                if (minions.Count == minions.Count(x => Player.LSDistance(x) < Spells[ElVi.Spells.E].Range) &&
                     bestFarmPos.Position.IsValid() && bestFarmPos.MinionsHit > 1)
                 {
                     Spells[ElVi.Spells.E].Cast();
@@ -360,7 +360,7 @@ namespace ElVi
             }
 
 
-            if (Player.Distance(target) <= 600 && IgniteDamage(target) >= target.Health && useI)
+            if (Player.LSDistance(target) <= 600 && IgniteDamage(target) >= target.Health && useI)
             {
                 Player.Spellbook.CastSpell(_ignite, target);
             }
@@ -414,7 +414,7 @@ namespace ElVi
             if (getCheckBoxItem(miscMenu, "ElVi.misc.AntiGapCloser"))
             {
                 if (Spells[ElVi.Spells.Q].IsReady() &&
-                    gapcloser.Sender.Distance(Player) < Spells[ElVi.Spells.Q].Range)
+                    gapcloser.Sender.LSDistance(Player) < Spells[ElVi.Spells.Q].Range)
                 {
                     if (!Spells[ElVi.Spells.Q].IsCharging)
                     {
@@ -436,7 +436,7 @@ namespace ElVi
                 return;
 
             if (args.DangerLevel != Interrupter2.DangerLevel.High ||
-                sender.Distance(Player) > Spells[ElVi.Spells.Q].Range)
+                sender.LSDistance(Player) > Spells[ElVi.Spells.Q].Range)
                 return;
 
             if (Spells[ElVi.Spells.Q].IsReady())

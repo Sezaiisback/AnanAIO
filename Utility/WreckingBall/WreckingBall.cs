@@ -149,7 +149,7 @@ namespace WreckingBall
                 HeroManager.Enemies.Where(
                     x =>
                     x.IsValid && !x.IsDead && x.IsVisible
-                    && x.Distance(leeHero.ServerPosition) < getSliderItem(mainMenu, "firstTargetRange")).ToList();
+                    && x.LSDistance(leeHero.ServerPosition) < getSliderItem(mainMenu, "firstTargetRange")).ToList();
 
             rTarget = inRangeHeroes.Any() ? (mainMode == 0 ? ReturnMostHp(inRangeHeroes) : ReturnClosest(inRangeHeroes)) : null;
 
@@ -160,7 +160,7 @@ namespace WreckingBall
                     HeroManager.Enemies.Where(
                         x =>
                         x.IsValid && !x.IsDead && x.IsVisible && x.NetworkId != rTarget.NetworkId
-                        && x.Distance(rTarget.ServerPosition)
+                        && x.LSDistance(rTarget.ServerPosition)
                         < getSliderItem(mainMenu, "secondTargetRange")).ToList();
 
                 rTargetSecond = secondTargets.Any() ? ReturnLessHp(secondTargets) : null;
@@ -272,7 +272,7 @@ namespace WreckingBall
                     closest = hero;
                 }
 
-                if (closest.Distance(leeHero) > hero.Distance(leeHero))
+                if (closest.LSDistance(leeHero) > hero.LSDistance(leeHero))
                 {
                     closest = hero;
                 }
@@ -326,7 +326,7 @@ namespace WreckingBall
             if (doQ)
             {
                 Console.WriteLine("10");
-                if (leeHero.Distance(flashVector) > 425 && leeHero.Distance(flashVector) < ChampInfo.Q.Range + distLeeToWardjump && CanQ1())
+                if (leeHero.LSDistance(flashVector) > 425 && leeHero.LSDistance(flashVector) < ChampInfo.Q.Range + distLeeToWardjump && CanQ1())
                 {
                     Console.WriteLine("11");
                     if (gpUnit != null)
@@ -355,12 +355,12 @@ namespace WreckingBall
 
             if (bubbaPriorityMode == PriorityMode.Wardjump)
             {
-                if (leeHero.Distance(flashVector) < distLeeToWardjump && CanWardJump() && doWardjump)
+                if (leeHero.LSDistance(flashVector) < distLeeToWardjump && CanWardJump() && doWardjump)
                 {
                     lastWjTickMenu = Environment.TickCount;
                     WardJumpTo(flashVector);
                 }
-                else if (leeHero.Distance(flashVector) < 425 && leeHero.Distance(rTarget) < ChampInfo.R.Range
+                else if (leeHero.LSDistance(flashVector) < 425 && leeHero.LSDistance(rTarget) < ChampInfo.R.Range
                          && flashSlot.IsReady() && doFlash && !CanWardJump() && Environment.TickCount > lastWjTickMenu + 1200)
                 {
                     if (spellR.CastOnUnit(rTarget))
@@ -370,7 +370,7 @@ namespace WreckingBall
                 }
                 else
                 {
-                    if (leeHero.Distance(flashVector) > distLeeKickPos)
+                    if (leeHero.LSDistance(flashVector) > distLeeKickPos)
                     {
                         if (getCheckBoxItem(mainMenu, "moveItself"))
                         {
@@ -389,7 +389,7 @@ namespace WreckingBall
             }
             else if (bubbaPriorityMode == PriorityMode.Flash)
             {
-                if (leeHero.Distance(flashVector) < 425 && leeHero.Distance(rTarget) < ChampInfo.R.Range
+                if (leeHero.LSDistance(flashVector) < 425 && leeHero.LSDistance(rTarget) < ChampInfo.R.Range
                     && flashSlot.IsReady() && doFlash)
                 {
                     if (spellR.CastOnUnit(rTarget))
@@ -398,14 +398,14 @@ namespace WreckingBall
                         lastFlashTickMenu = Environment.TickCount;
                     }
                 }
-                else if (!flashSlot.IsReady() && leeHero.Distance(flashVector) < distLeeToWardjump && CanWardJump()
+                else if (!flashSlot.IsReady() && leeHero.LSDistance(flashVector) < distLeeToWardjump && CanWardJump()
                          && doWardjump && Environment.TickCount > lastFlashTickMenu + 1200)
                 {
                     WardJumpTo(flashVector);
                 }
                 else
                 {
-                    if (leeHero.Distance(flashVector) > distLeeKickPos)
+                    if (leeHero.LSDistance(flashVector) > distLeeKickPos)
                     {
                         if (getCheckBoxItem(mainMenu, "moveItself"))
                         {
@@ -422,13 +422,13 @@ namespace WreckingBall
 
         private static Obj_AI_Base GetClosestDirectEnemyUnitToPos(Vector3 pos)
         {
-            List<Obj_AI_Base> possibleHeroes = HeroManager.Enemies.Where(x => x.IsValidTarget() && pos.Distance(x.ServerPosition) < distLeeToWardjump && x.Health > spellQ.GetDamage(x)).ToList().ConvertAll(x => (Obj_AI_Base)x);
+            List<Obj_AI_Base> possibleHeroes = HeroManager.Enemies.Where(x => x.IsValidTarget() && pos.LSDistance(x.ServerPosition) < distLeeToWardjump && x.Health > spellQ.GetDamage(x)).ToList().ConvertAll(x => (Obj_AI_Base)x);
 
             List<Obj_AI_Base> possibleMinions = MinionManager.GetMinions(pos, distLeeToWardjump).Where(x => x.Health > spellQ.GetDamage(x)).ToList();
 
             List<Obj_AI_Base> allPossible = possibleHeroes.Concat(possibleMinions).ToList();
 
-            allPossible = allPossible.OrderBy(unit => unit.Distance(pos)).ToList();
+            allPossible = allPossible.OrderBy(unit => unit.LSDistance(pos)).ToList();
 
             Obj_AI_Base bestUnit = null;
 
@@ -513,7 +513,7 @@ namespace WreckingBall
 
         /*private static float GetWardjumpTime(Vector3 pos)
         {
-            var distance = leeHero.Distance(pos);
+            var distance = leeHero.LSDistance(pos);
             var speed = ChampInfo.W.Speed;
 
             var time = distance / speed;
@@ -526,16 +526,16 @@ namespace WreckingBall
             var secondTargetPredPos = SPrediction.Prediction.GetFastUnitPosition(rTargetSecond, GetTimeBetweenTargets() + ChampInfo.R.Delay);
 
             var fVector = new Vector3(secondTargetPredPos.To3D().ToArray()).LSExtend(
-                rTarget.ServerPosition, rTarget.Distance(secondTargetPredPos.To3D()) + distTargetKickPos);
+                rTarget.ServerPosition, rTarget.LSDistance(secondTargetPredPos.To3D()) + distTargetKickPos);
 
-            var fVectorDraw = new Vector3(secondTargetPredPos.To3D().ToArray()).LSExtend(rTarget.Position, rTarget.Distance(secondTargetPredPos.To3D()) + distTargetKickPos);
+            var fVectorDraw = new Vector3(secondTargetPredPos.To3D().ToArray()).LSExtend(rTarget.Position, rTarget.LSDistance(secondTargetPredPos.To3D()) + distTargetKickPos);
 
             return !forDraws ? fVector : fVectorDraw;
         }
 
         private static float GetTimeBetweenTargets()
         {
-            var distance = rTarget.Distance(rTargetSecond);
+            var distance = rTarget.LSDistance(rTargetSecond);
             var speed = ChampInfo.R.Speed;
 
             var time = distance / speed;

@@ -161,7 +161,7 @@ namespace LCS_Janna
 
         private static void OnGapcloser(ActiveGapcloser gapcloser)
         {
-            if (gapcloser.Sender.IsEnemy && gapcloser.End.Distance(ObjectManager.Player.Position) < 200 &&
+            if (gapcloser.Sender.IsEnemy && gapcloser.End.LSDistance(ObjectManager.Player.Position) < 200 &&
                 gapcloser.Sender.IsValidTarget(Q.Range) && getCheckBoxItem(qsettings, "q.antigapcloser"))
             {
                 Q.Cast(gapcloser.Sender);
@@ -177,7 +177,7 @@ namespace LCS_Janna
                 Console.WriteLine("1");
                 if (esettings["e.engage." + args.SData.Name] != null)
                 {
-                    if (sender.IsAlly && sender is AIHeroClient && getCheckBoxItem(esettings, "e.engage." + args.SData.Name) && getCheckBoxItem(esettings, "e." + sender.BaseSkinName) && sender.Distance(ObjectManager.Player.Position) <= E.Range && !sender.IsDead && !sender.IsZombie && sender.IsValid)
+                    if (sender.IsAlly && sender is AIHeroClient && getCheckBoxItem(esettings, "e.engage." + args.SData.Name) && getCheckBoxItem(esettings, "e." + sender.BaseSkinName) && sender.LSDistance(ObjectManager.Player.Position) <= E.Range && !sender.IsDead && !sender.IsZombie && sender.IsValid)
                     {
                         E.CastOnUnit(sender);
                     }
@@ -228,7 +228,7 @@ namespace LCS_Janna
                 Console.WriteLine("5");
                 if (sender is AIHeroClient && sender.IsEnemy && args.Target.IsAlly && args.Target.Type == GameObjectType.obj_AI_Turret
                     && args.SData.IsAutoAttack() && ObjectManager.Player.ManaPercent >= getSliderItem(esettings, "min.mana.for.e")
-                    && ((AIHeroClient)args.Target).Distance(ObjectManager.Player.Position) < E.Range
+                    && ((AIHeroClient)args.Target).LSDistance(ObjectManager.Player.Position) < E.Range
                     && ((AIHeroClient)args.Target).HealthPercent < getSliderItem(esettings, "turret.hp.percent"))
                 {
                     E.Cast((AIHeroClient)args.Target);
@@ -244,23 +244,23 @@ namespace LCS_Janna
                     var StartPos = args.Start;
                     var EndPos = args.End;
                     var NonTRange = new EloBuddy.SDK.Geometry.Polygon.Rectangle(StartPos, EndPos, sender.BoundingRadius + 30);
-                    var Target = HeroManager.Allies.FirstOrDefault(f => f.Position.Distance(Player.Position) <= E.Range && NonTRange.IsInside(f.Position));
+                    var Target = HeroManager.Allies.FirstOrDefault(f => f.Position.LSDistance(Player.Position) <= E.Range && NonTRange.IsInside(f.Position));
                     if (Target != null)
                     {
                         E.Cast(Target, true);
                         return;
                     }
-                    if (args.Target != null && args.Target.Position.Distance(Player.Position) <= E.Range && args.Target is AIHeroClient)
+                    if (args.Target != null && args.Target.Position.LSDistance(Player.Position) <= E.Range && args.Target is AIHeroClient)
                     {
                         Console.WriteLine("7");
-                        var ShieldTarget = HeroManager.Allies.FirstOrDefault(f => f.Position.Distance(args.Target.Position) <= 10);
+                        var ShieldTarget = HeroManager.Allies.FirstOrDefault(f => f.Position.LSDistance(args.Target.Position) <= 10);
                         E.Cast(ShieldTarget, true);
                         return;
                     }
                 }
                 if (sender.IsAlly && args.Target is AIHeroClient)
                 {
-                    if (sender.Position.Distance(Player.Position) <= E.Range && args.Target != null && args.SData.Name.ToLower().Contains("attack"))
+                    if (sender.Position.LSDistance(Player.Position) <= E.Range && args.Target != null && args.SData.Name.ToLower().Contains("attack"))
                     {
                         E.CastOnUnit(sender, true);
                         return;

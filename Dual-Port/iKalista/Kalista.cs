@@ -256,7 +256,7 @@ namespace IKalista
 
             return
                 Collision.GetCollision(new List<Vector3> { targetPosition }, input)
-                    .OrderBy(obj => obj.Distance(source))
+                    .OrderBy(obj => obj.LSDistance(source))
                     .ToList();
         }
 
@@ -277,7 +277,7 @@ namespace IKalista
             {
                 foreach (var target in
                     ObjectManager.Get<AIHeroClient>()
-                        .Where(enem => enem.IsValid && enem.IsEnemy && enem.Distance(ObjectManager.Player) <= 2450f))
+                        .Where(enem => enem.IsValid && enem.IsEnemy && enem.LSDistance(ObjectManager.Player) <= 2450f))
                 {
                     if (getCheckBoxItem(balistaMenu, "disable" + target.ChampionName) || !spells[SpellSlot.R].IsReady()
                         || !getCheckBoxItem(balistaMenu, "useBalista"))
@@ -285,7 +285,7 @@ namespace IKalista
                         return;
                     }
 
-                    if (target.Buffs != null && target.GetTotalHealth() > 200 && blitzcrank.Distance(target) > 450f)
+                    if (target.Buffs != null && target.GetTotalHealth() > 200 && blitzcrank.LSDistance(target) > 450f)
                     {
                         for (var i = 0; i < target.Buffs.Count(); i++)
                         {
@@ -313,12 +313,12 @@ namespace IKalista
             }
 
             if (getKeyBindItem(miscMenu, "sentBaron")
-                && ObjectManager.Player.Distance(baronPosition) <= spells[SpellSlot.W].Range)
+                && ObjectManager.Player.LSDistance(baronPosition) <= spells[SpellSlot.W].Range)
             {
                 spells[SpellSlot.W].Cast(baronPosition);
             }
             else if (getKeyBindItem(miscMenu, "sentDragon")
-                     && ObjectManager.Player.Distance(dragonPosition) <= spells[SpellSlot.W].Range)
+                     && ObjectManager.Player.LSDistance(dragonPosition) <= spells[SpellSlot.W].Range)
             {
                 spells[SpellSlot.W].Cast(dragonPosition);
             }
@@ -356,7 +356,7 @@ namespace IKalista
 
                     if (getCheckBoxItem(drawMenu, "drawPercentage"))
                     {
-                        foreach (var source in HeroManager.Enemies.Where(x => ObjectManager.Player.Distance(x) <= 2000f && !x.IsDead))
+                        foreach (var source in HeroManager.Enemies.Where(x => ObjectManager.Player.LSDistance(x) <= 2000f && !x.IsDead))
                         {
                             var currentPercentage = Extensions.GetRendDamage(source) * 100 / source.GetTotalHealth();
                             var updatedCurrentPercentage = (int)Math.Ceiling(currentPercentage);
@@ -374,7 +374,7 @@ namespace IKalista
                     if (getCheckBoxItem(drawMenu, "drawJunglePercentage"))
                     {
                         foreach (var jungleMobs in
-                            ObjectManager.Get<Obj_AI_Minion>().Where(x => ObjectManager.Player.Distance(x) <= spells[SpellSlot.E].Range && !x.IsDead
+                            ObjectManager.Get<Obj_AI_Minion>().Where(x => ObjectManager.Player.LSDistance(x) <= spells[SpellSlot.E].Range && !x.IsDead
                                 && x.Team == GameObjectTeam.Neutral))
                         {
                             var currentPercentage = Extensions.GetRendDamage(jungleMobs) * 100 / jungleMobs.GetTotalHealth();
@@ -648,7 +648,7 @@ namespace IKalista
                     var stacks = enemy.GetBuffCount("kalistaexpungemarker");
                     var damage = Math.Ceiling(Extensions.GetRendDamage(enemy) * 100 / enemy.GetTotalHealth());
 
-                    if (getCheckBoxItem(comboMenu, "eLeaving") && damage >= getSliderItem(comboMenu, "ePercent") && enemy.HealthPercent > 20 && enemy.ServerPosition.Distance(ObjectManager.Player.ServerPosition, true) > Math.Pow(spells[SpellSlot.E].Range * 0.8, 2) && Environment.TickCount - spells[SpellSlot.E].LastCastAttemptT > 500)
+                    if (getCheckBoxItem(comboMenu, "eLeaving") && damage >= getSliderItem(comboMenu, "ePercent") && enemy.HealthPercent > 20 && enemy.ServerPosition.LSDistance(ObjectManager.Player.ServerPosition, true) > Math.Pow(spells[SpellSlot.E].Range * 0.8, 2) && Environment.TickCount - spells[SpellSlot.E].LastCastAttemptT > 500)
                     {
                         spells[SpellSlot.E].Cast();
                         spells[SpellSlot.E].LastCastAttemptT = Environment.TickCount;
@@ -664,8 +664,8 @@ namespace IKalista
         {
             var bestTarget =
                 ObjectManager.Get<Obj_AI_Base>()
-                    .Where(x => x.IsEnemy && ObjectManager.Player.Distance(x) <= Orbwalking.GetRealAutoAttackRange(x))
-                    .OrderBy(x => ObjectManager.Player.Distance(x))
+                    .Where(x => x.IsEnemy && ObjectManager.Player.LSDistance(x) <= Orbwalking.GetRealAutoAttackRange(x))
+                    .OrderBy(x => ObjectManager.Player.LSDistance(x))
                     .FirstOrDefault();
 
             // ReSharper disable once ConstantNullCoalescingCondition
@@ -896,7 +896,7 @@ namespace IKalista
             this.HandleSentinels();
             this.KillstealQ();
 
-            var enemies = HeroManager.Enemies.Count(x => ObjectManager.Player.Distance(x) <= spells[SpellSlot.E].Range);
+            var enemies = HeroManager.Enemies.Count(x => ObjectManager.Player.LSDistance(x) <= spells[SpellSlot.E].Range);
 
             if (getCheckBoxItem(comboMenu, "eDeath") && enemies > 2 && ObjectManager.Player.HealthPercent <= getSliderItem(comboMenu, "eHealth") && spells[SpellSlot.E].IsReady())
             {
@@ -949,14 +949,14 @@ namespace IKalista
 
             foreach (var minion in minions.Where(x => x.IsValidTarget(spells[SpellSlot.Q].Range)))
             {
-                var difference = ObjectManager.Player.Distance(target) - ObjectManager.Player.Distance(minion);
+                var difference = ObjectManager.Player.LSDistance(target) - ObjectManager.Player.LSDistance(minion);
 
                 for (var i = 0; i < difference; i += (int)target.BoundingRadius)
                 {
                     var point =
                         minion.ServerPosition.To2D().Extend(ObjectManager.Player.ServerPosition.To2D(), -i).To3D();
                     var time = spells[SpellSlot.Q].Delay
-                               + (ObjectManager.Player.Distance(point) / spells[SpellSlot.Q].Speed * 1000f);
+                               + (ObjectManager.Player.LSDistance(point) / spells[SpellSlot.Q].Speed * 1000f);
 
                     var prediction = LeagueSharp.Common.Prediction.GetPrediction(target, time);
 
@@ -969,8 +969,8 @@ namespace IKalista
                         return;
                     }
 
-                    if (prediction.UnitPosition.Distance(point) <= spells[SpellSlot.Q].Width
-                        && !minions.Any(m => m.Distance(point) <= spells[SpellSlot.Q].Width))
+                    if (prediction.UnitPosition.LSDistance(point) <= spells[SpellSlot.Q].Width
+                        && !minions.Any(m => m.LSDistance(point) <= spells[SpellSlot.Q].Width))
                     {
                         spells[SpellSlot.Q].Cast(minion);
                     }

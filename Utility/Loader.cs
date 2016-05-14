@@ -34,6 +34,7 @@ namespace PortAIO.Utility
         public static int kalista { get { return Miscc["kalista"].Cast<ComboBox>().CurrentValue; } }
         public static bool gank { get { return Miscc["gank"].Cast<CheckBox>().CurrentValue; } }
         public static int diana { get { return Miscc["diana"].Cast<ComboBox>().CurrentValue; } }
+        public static int draven { get { return Miscc["draven"].Cast<ComboBox>().CurrentValue; } }
         public static int cait { get { return Miscc["cait"].Cast<ComboBox>().CurrentValue; } }
         public static bool intro { get { return Miscc["intro"].Cast<CheckBox>().CurrentValue; } }
         public static int twitch { get { return Miscc["twitch"].Cast<ComboBox>().CurrentValue; } }
@@ -57,7 +58,7 @@ namespace PortAIO.Utility
 
         public static List<string> RandomUltChampsList = new List<string>(new[] { "Ezreal", "Jinx", "Ashe", "Draven", "Gangplank", "Ziggs", "Lux", "Xerath" });
         public static List<string> BaseUltList = new List<string>(new[] { "Jinx", "Ashe", "Draven", "Ezreal", "Karthus"});
-        public static List<string> Champion = new List<string>(new[] { "Soraka", "KogMaw", "LeeSin", "Kalista", "Diana", "Caitlyn", "Twitch", "Nidalee", "Lucian", "Ashe", "Vayne", "Jayce", "Yasuo", "Katarina", "Xerath", "Gragas" });
+        public static List<string> Champion = new List<string>(new[] { "Soraka", "KogMaw", "LeeSin", "Kalista", "Diana", "Caitlyn", "Twitch", "Nidalee", "Lucian", "Ashe", "Vayne", "Jayce", "Yasuo", "Katarina", "Xerath", "Gragas", "Draven" });
 
         public static void Menu()
         {
@@ -130,6 +131,10 @@ namespace PortAIO.Utility
                 if (Player.ChampionName.Equals(Champion[15]))
                 {
                     Miscc.Add("gragas", new ComboBox("Use addon for Gragas : ", 0, "Drunk Carry", "Nechrito"));
+                }
+                if (Player.ChampionName.Equals(Champion[16]))
+                {
+                    Miscc.Add("draven", new ComboBox("Use addon for Draven : ", 0, "Sharp Shooter/Exor", "Tyler1"));
                 }
             }
             else

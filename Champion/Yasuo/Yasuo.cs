@@ -55,6 +55,7 @@
 
         public Yasuo()
         {
+
             Q = new LeagueSharp.SDK.Spell(SpellSlot.Q, 505).SetSkillshot(0.4f, 20, float.MaxValue, false, SkillshotType.SkillshotLine);
             Q2 = new LeagueSharp.SDK.Spell(Q.Slot, 1100).SetSkillshot(Q.Delay, 90, 1250, true, Q.Type);
             Q3 = new LeagueSharp.SDK.Spell(Q.Slot, 250).SetTargetted(0.01f, float.MaxValue);
@@ -68,6 +69,17 @@
             Q.CastCondition += () => !isBlockQ;
             Q2.CastCondition += () => !isBlockQ;
             Q3.CastCondition += () => !isBlockQ && IsDashing;
+
+            if (YasuoPro.YasuoMenu.ComboM != null)
+            {
+                if (EntityManager.Heroes.Enemies.Any())
+                {
+                    Evade.Init();
+                }
+                Evade.Evading += Evading;
+                Evade.TryEvading += TryEvading;
+                return;
+            }
 
             comboMenu = config.AddSubMenu("Combo", "Combo");
             comboMenu.AddGroupLabel("Q: Always On");

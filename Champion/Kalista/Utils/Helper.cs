@@ -40,7 +40,7 @@ namespace iKalistaReborn.Utils
 
             return
                 Collision.GetCollision(new List<Vector3> { targetPosition }, input)
-                    .OrderBy(x => x.Distance(source))
+                    .OrderBy(x => x.LSDistance(source))
                     .ToList();
         }
 

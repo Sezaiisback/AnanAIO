@@ -339,7 +339,7 @@ namespace OneKeyToWin_AIO_Sebby.Champions
                             allMinions.Where(
                                 minion =>
                                     minion.IsValidTarget(E.Range) && minion.Health < E.GetDamage(minion) &&
-                                    te.Distance(minion.Position) < 500 &&
+                                    te.LSDistance(minion.Position) < 500 &&
                                     !minion.HasBuff("AlZaharMaleficVisions")))
                     {
                         E.CastOnUnit(minion);

@@ -9,7 +9,7 @@ namespace LCS_Lucian
     {
         public static void LucianAntiGapcloser(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs spell)
         {
-            if (sender.IsEnemy && spell.End.Distance(ObjectManager.Player.Position) < LucianSpells.E.Range &&
+            if (sender.IsEnemy && spell.End.LSDistance(ObjectManager.Player.Position) < LucianSpells.E.Range &&
                 !spell.SData.IsAutoAttack() && spell.Target.IsMe)
             {
                 foreach (

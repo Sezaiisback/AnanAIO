@@ -85,7 +85,7 @@ namespace OneKeyToWin_AIO_Sebby.Core
                                 enemies = count;
                                 bestpoint = point;
                             }
-                            else if (count == enemies && Game.CursorPos.Distance(point) < Game.CursorPos.Distance(bestpoint))
+                            else if (count == enemies && Game.CursorPos.LSDistance(point) < Game.CursorPos.LSDistance(bestpoint))
                             {
                                 enemies = count;
                                 bestpoint = point;
@@ -117,13 +117,13 @@ namespace OneKeyToWin_AIO_Sebby.Core
                     var dir = (end - start).Normalized();
                     var pDir = dir.Perpendicular();
 
-                    var rightEndPos = end + pDir * Player.Distance(orbT);
-                    var leftEndPos = end - pDir * Player.Distance(orbT);
+                    var rightEndPos = end + pDir * Player.LSDistance(orbT);
+                    var leftEndPos = end - pDir * Player.LSDistance(orbT);
 
                     var rEndPos = new Vector3(rightEndPos.X, rightEndPos.Y, Player.Position.Z);
                     var lEndPos = new Vector3(leftEndPos.X, leftEndPos.Y, Player.Position.Z);
 
-                    bestpoint = Game.CursorPos.Distance(rEndPos) < Game.CursorPos.Distance(lEndPos) ? Player.Position.Extend(rEndPos, DashSpell.Range).To3D() : Player.Position.Extend(lEndPos, DashSpell.Range).To3D();
+                    bestpoint = Game.CursorPos.LSDistance(rEndPos) < Game.CursorPos.LSDistance(lEndPos) ? Player.Position.Extend(rEndPos, DashSpell.Range).To3D() : Player.Position.Extend(lEndPos, DashSpell.Range).To3D();
                 }
             }
             else if (DashMode == 2)
@@ -146,7 +146,7 @@ namespace OneKeyToWin_AIO_Sebby.Core
                         enemies = count;
                         bestpoint = point;
                     }
-                    else if (count == enemies && Game.CursorPos.Distance(point) < Game.CursorPos.Distance(bestpoint))
+                    else if (count == enemies && Game.CursorPos.LSDistance(point) < Game.CursorPos.LSDistance(bestpoint))
                     {
                         enemies = count;
                         bestpoint = point;
@@ -176,7 +176,7 @@ namespace OneKeyToWin_AIO_Sebby.Core
                 return true;
             if (Orbwalker.LastTarget != null && Orbwalker.LastTarget.Type == GameObjectType.AIHeroClient)
             {
-                return point.Distance(Orbwalker.LastTarget.Position) < Player.AttackRange;
+                return point.LSDistance(Orbwalker.LastTarget.Position) < Player.AttackRange;
             }
             return point.CountEnemiesInRange(Player.AttackRange) > 0;
         }

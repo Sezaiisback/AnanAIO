@@ -179,19 +179,19 @@ namespace UnderratedAIO.Champions
             }
 
             var manaperc = player.Mana/player.MaxMana*100;
-            if (player.HasBuff("MaokaiSapMagicMelee") && player.Distance(target) < Orbwalking.GetRealAutoAttackRange(target) + 75)
+            if (player.HasBuff("MaokaiSapMagicMelee") && player.LSDistance(target) < Orbwalking.GetRealAutoAttackRange(target) + 75)
             {
                 return;
             }
 
-            if (getCheckBoxItem(comboMenu, "useq") && Q.CanCast(target) && getCheckBoxItem(comboMenu, "usee") && player.Distance(target) <= getSliderItem(comboMenu, "useqrange") && ((getCheckBoxItem(comboMenu, "useqroot") && !target.HasBuffOfType(BuffType.Snare) && !target.HasBuffOfType(BuffType.Slow) && !target.HasBuffOfType(BuffType.Stun) && !target.HasBuffOfType(BuffType.Suppression)) || !getCheckBoxItem(comboMenu, "useqroot")))
+            if (getCheckBoxItem(comboMenu, "useq") && Q.CanCast(target) && getCheckBoxItem(comboMenu, "usee") && player.LSDistance(target) <= getSliderItem(comboMenu, "useqrange") && ((getCheckBoxItem(comboMenu, "useqroot") && !target.HasBuffOfType(BuffType.Snare) && !target.HasBuffOfType(BuffType.Slow) && !target.HasBuffOfType(BuffType.Stun) && !target.HasBuffOfType(BuffType.Suppression)) || !getCheckBoxItem(comboMenu, "useqroot")))
             {
                 Q.Cast(target, getCheckBoxItem(config, "packets"));
             }
 
             if (getCheckBoxItem(comboMenu, "usew"))
             {
-                if (getCheckBoxItem(comboMenu, "blocke") && player.Distance(target) < W.Range && W.IsReady() && E.CanCast(target))
+                if (getCheckBoxItem(comboMenu, "blocke") && player.LSDistance(target) < W.Range && W.IsReady() && E.CanCast(target))
                 {
                     E.Cast(target, getCheckBoxItem(config, "packets"));
                     CastR(target);
@@ -218,7 +218,7 @@ namespace UnderratedAIO.Champions
                                     player.CountEnemiesInRange(R.Range - 50);
                 var targetR = TargetSelector.GetTarget(R.Range, DamageType.Magical);
 
-                if (maoR && targetR != null && ((getCheckBoxItem(comboMenu, "rks") && player.LSGetSpellDamage(targetR, SpellSlot.R) + player.CalcDamage(target, DamageType.Magical, maoRStack) > targetR.Health) || manaperc < getSliderItem(comboMenu, "rmana") || (!enoughEnemies && player.Distance(targetR) > R.Range - 50)))
+                if (maoR && targetR != null && ((getCheckBoxItem(comboMenu, "rks") && player.LSGetSpellDamage(targetR, SpellSlot.R) + player.CalcDamage(target, DamageType.Magical, maoRStack) > targetR.Health) || manaperc < getSliderItem(comboMenu, "rmana") || (!enoughEnemies && player.LSDistance(targetR) > R.Range - 50)))
                 {
                     R.Cast(getCheckBoxItem(config, "packets"));
                 }

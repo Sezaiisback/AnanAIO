@@ -144,7 +144,7 @@ namespace Mordekaiser
             var itemCheck = SmiteBlue.Any(i => LeagueSharp.Common.Items.HasItem(i))
                             || SmiteRed.Any(i => LeagueSharp.Common.Items.HasItem(i));
             if (itemCheck && Program.Player.Spellbook.CanUseSpell(SmiteSlot) == SpellState.Ready
-                && t.Distance(Program.Player.Position) < range)
+                && t.LSDistance(Program.Player.Position) < range)
             {
                 Program.Player.Spellbook.CastSpell(SmiteSlot, t);
             }
@@ -196,7 +196,7 @@ namespace Mordekaiser
             var range = 550f;
             var use = getCheckBoxItem("Spells.Ignite");
             if (use && Program.Player.Spellbook.CanUseSpell(IgniteSlot) == SpellState.Ready
-                && t.Distance(Program.Player.Position) < range
+                && t.LSDistance(Program.Player.Position) < range
                 && Program.Player.GetSummonerSpellDamage(t, Damage.SummonerSpell.Ignite) > t.Health)
             {
                 Program.Player.Spellbook.CastSpell(IgniteSlot, t);

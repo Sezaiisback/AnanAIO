@@ -290,7 +290,7 @@ namespace GFUELElise
                             R.Cast();
                         }
 
-                        if (Player.Distance(target) <= 750 && R.IsReady()
+                        if (Player.LSDistance(target) <= 750 && R.IsReady()
                             && (!Q.IsReady() && !W.IsReady() && !E.IsReady()
                                 || !Q.IsReady() && !W.IsReady() && !E.IsReady()))
                         {
@@ -315,7 +315,7 @@ namespace GFUELElise
                         }
                     }
 
-                    if (getCheckBoxItem(comboMenu, "GFUELElise.ComboSpider.W") && Player.Distance(target) <= 140 &&
+                    if (getCheckBoxItem(comboMenu, "GFUELElise.ComboSpider.W") && Player.LSDistance(target) <= 140 &&
                         SpiderW.IsReady())
                     {
                         if (target.IsValidTarget(SpiderW.Range))
@@ -325,7 +325,7 @@ namespace GFUELElise
                     }
 
                     if (getCheckBoxItem(comboMenu, "GFUELElise.ComboSpider.E") &&
-                        Player.Distance(target) <= SpiderE.Range && Player.Distance(target) > SpiderQ.Range &&
+                        Player.LSDistance(target) <= SpiderE.Range && Player.LSDistance(target) > SpiderQ.Range &&
                         SpiderE.IsReady())
                     {
                         if (target.IsValidTarget(SpiderQ.Range)) return;
@@ -357,7 +357,7 @@ namespace GFUELElise
                     }
 
                     if (getCheckBoxItem(comboMenu, "GFUELElise.ComboSpider.E") &&
-                        Player.Distance(target) > SpiderQ.Range && SpiderE.IsReady())
+                        Player.LSDistance(target) > SpiderQ.Range && SpiderE.IsReady())
                     {
                         SpiderE.Cast(target);
                     }

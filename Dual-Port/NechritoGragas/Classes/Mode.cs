@@ -13,7 +13,7 @@ namespace Nechrito_Gragas
         public static void ComboLogic()
         {
             var Target = TargetSelector.SelectedTarget;
-            if (Target != null && Target.IsValidTarget() && !Target.IsZombie && (Program.Player.Distance(Target.Position) <= 900) && MenuConfig.ComboR)
+            if (Target != null && Target.IsValidTarget() && !Target.IsZombie && (Program.Player.LSDistance(Target.Position) <= 900) && MenuConfig.ComboR)
             {
                 if (Spells._q.IsReady() && Spells._r.IsReady() && !Target.LSIsDashing())
                 {

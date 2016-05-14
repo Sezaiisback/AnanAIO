@@ -83,12 +83,12 @@ namespace UnderratedAIO.Champions
             {
                 return;
             }
-            var dist = player.Distance(target);
+            var dist = player.LSDistance(target);
             if (getCheckBoxItem(menuC, "useq") && player.CountEnemiesInRange(Q.Range) > 0)
             {
                 Q.Cast(getCheckBoxItem(config, "packets"));
             }
-            if (getCheckBoxItem(menuC, "usew") || player.Distance(target) < 600)
+            if (getCheckBoxItem(menuC, "usew") || player.LSDistance(target) < 600)
             {
                 W.Cast(getCheckBoxItem(config, "packets"));
             }
@@ -96,7 +96,7 @@ namespace UnderratedAIO.Champions
             var hasIgnite = player.Spellbook.CanUseSpell(player.GetSpellSlot("SummonerDot")) == SpellState.Ready;
             if (getCheckBoxItem(menuC, "useIgnite") && ignitedmg > target.Health && hasIgnite &&
                 !E.CanCast(target) &&
-                (target.Distance(player) >= Q.Range || (target.Distance(player) <= Q.Range && player.HealthPercent < 30)))
+                (target.LSDistance(player) >= Q.Range || (target.LSDistance(player) <= Q.Range && player.HealthPercent < 30)))
             {
                 player.Spellbook.CastSpell(player.GetSpellSlot("SummonerDot"), target);
             }

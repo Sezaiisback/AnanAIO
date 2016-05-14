@@ -31,7 +31,7 @@ namespace ElRengarRevamped
                 if (Ferocity <= 4)
                 {
                     if (spells[Spells.Q].IsReady() && MenuInit.getCheckBoxItem(MenuInit.comboMenu, "Combo.Use.Q")
-                        && Player.Distance(target) <= spells[Spells.Q].Range)
+                        && Player.LSDistance(target) <= spells[Spells.Q].Range)
                     {
                         spells[Spells.Q].Cast();
                     }
@@ -213,8 +213,8 @@ namespace ElRengarRevamped
                 var hits =
                     HeroManager.Enemies.Where(
                         e =>
-                            e.IsValidTarget() && e.Distance(Player) < 450f
-                            || e.Distance(Player) < 450f && e.IsFacing(Player)).ToList();
+                            e.IsValidTarget() && e.LSDistance(Player) < 450f
+                            || e.LSDistance(Player) < 450f && e.IsFacing(Player)).ToList();
 
                 return new Tuple<int, List<AIHeroClient>>(hits.Count, hits);
             }

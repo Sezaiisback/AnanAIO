@@ -75,11 +75,11 @@ namespace HeavenStrikeAzir
 
                 if (SoldierMgr.ActiveSoldiers.Count > 0 && Program._q.IsReady())
                 {
-                    var closestSoldier = SoldierMgr.ActiveSoldiers.MinOrDefault(s => s.Position.To2D().Distance(extended, true));
+                    var closestSoldier = SoldierMgr.ActiveSoldiers.MinOrDefault(s => s.Position.To2D().LSDistance(extended, true));
                     CastELocation = closestSoldier.Position.To2D();
                     CastQLocation = closestSoldier.Position.To2D().Extend(JumpTo, 800f);
 
-                    if (CastELocation.Distance(JumpTo) > ObjectManager.Player.ServerPosition.To2D().Distance(JumpTo) && !juke && castq)
+                    if (CastELocation.LSDistance(JumpTo) > ObjectManager.Player.ServerPosition.To2D().LSDistance(JumpTo) && !juke && castq)
                     {
                         CastQLocation = extended;
                         CastET = Utils.TickCount + 250;
@@ -88,14 +88,14 @@ namespace HeavenStrikeAzir
                     else
                     {
                         Program._e.Cast(CastELocation, true);
-                        if (ObjectManager.Player.ServerPosition.To2D().Distance(CastELocation) < 700 && castq)
+                        if (ObjectManager.Player.ServerPosition.To2D().LSDistance(CastELocation) < 700 && castq)
                             LeagueSharp.Common.Utility.DelayAction.Add(250, () => Program._q.Cast(CastQLocation, true));
                     }
                 }
             }
             else
             {
-                if (Program._q.IsReady() && CastELocation.Distance(ObjectManager.Player.ServerPosition) <= 200 && castq)
+                if (Program._q.IsReady() && CastELocation.LSDistance(ObjectManager.Player.ServerPosition) <= 200 && castq)
                     Program._q.Cast(CastQLocation, true);
 
                 JumpTo = Vector2.Zero;

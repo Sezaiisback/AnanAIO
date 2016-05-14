@@ -132,19 +132,19 @@ namespace OneKeyToWin_AIO_Sebby.Core
                     finishPosition = MissileEndPos;
                 }
 
-                var misToPlayer = Player.Distance(finishPosition);
-                var tarToPlayer = Player.Distance(Target);
+                var misToPlayer = Player.LSDistance(finishPosition);
+                var tarToPlayer = Player.LSDistance(Target);
 
                 if (misToPlayer > tarToPlayer)
                 {
-                    var misToTarget = Target.Distance(finishPosition);
+                    var misToTarget = Target.LSDistance(finishPosition);
 
                     if (misToTarget < QWER.Range && misToTarget > 50)
                     {
-                        var cursorToTarget = Target.Distance(Player.Position.Extend(Game.CursorPos, 100));
+                        var cursorToTarget = Target.LSDistance(Player.Position.Extend(Game.CursorPos, 100));
                         var ext = finishPosition.Extend(Target.ServerPosition, cursorToTarget + misToTarget);
 
-                        if (ext.Distance(Player.Position) < 800 && ext.CountEnemiesInRange(400) < 2)
+                        if (ext.LSDistance(Player.Position) < 800 && ext.CountEnemiesInRange(400) < 2)
                         {
                             if (getCheckBoxItem("drawHelper"))
                                 Utility.DrawCircle(ext.To3D(), 100, Color.White, 1, 1);
