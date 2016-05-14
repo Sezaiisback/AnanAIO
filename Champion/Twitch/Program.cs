@@ -168,7 +168,7 @@ namespace OneKeyToWin_AIO_Sebby.Champions
                 LogicE();
             if (Program.LagFree(2) && Q.IsReady() && !Orbwalker.IsAutoAttacking)
                 LogicQ();
-            if (Program.LagFree(3) && W.IsReady() && !Orbwalker.IsAutoAttacking)
+            if (Program.LagFree(3) && getCheckBoxItem(wMenu, "autoW") && W.IsReady() && !Orbwalker.IsAutoAttacking)
                 LogicW();
             if (Program.LagFree(4) && R.IsReady() && Program.Combo)
                 LogicR();
