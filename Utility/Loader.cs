@@ -49,6 +49,7 @@ namespace PortAIO.Utility
         public static int xerath { get { return Miscc["xerath"].Cast<ComboBox>().CurrentValue; } }
         public static int gragas { get { return Miscc["gragas"].Cast<ComboBox>().CurrentValue; } }
         public static int ezreal { get { return Miscc["ezreal"].Cast<ComboBox>().CurrentValue; } }
+        public static int brand { get { return Miscc["brand"].Cast<ComboBox>().CurrentValue; } }
 
 
         public static Menu Miscc;
@@ -60,7 +61,27 @@ namespace PortAIO.Utility
 
         public static List<string> RandomUltChampsList = new List<string>(new[] { "Ezreal", "Jinx", "Ashe", "Draven", "Gangplank", "Ziggs", "Lux", "Xerath" });
         public static List<string> BaseUltList = new List<string>(new[] { "Jinx", "Ashe", "Draven", "Ezreal", "Karthus"});
-        public static List<string> Champion = new List<string>(new[] { "Soraka", "KogMaw", "LeeSin", "Kalista", "Diana", "Caitlyn", "Twitch", "Nidalee", "Lucian", "Ashe", "Vayne", "Jayce", "Yasuo", "Katarina", "Xerath", "Gragas", "Draven", "Ezreal" });
+        public static List<string> Champion = new List<string>(new[] {
+            "Soraka", // 0
+            "KogMaw", // 1
+            "LeeSin", // 2
+            "Kalista", // 3
+            "Diana", // 4
+            "Caitlyn", // 5
+            "Twitch", // 6
+            "Nidalee", // 7
+            "Lucian", // 8
+            "Ashe", // 9
+            "Vayne", // 10
+            "Jayce", // 11
+            "Yasuo", // 12
+            "Katarina", // 13
+            "Xerath", // 14
+            "Gragas", // 15
+            "Draven", // 16
+            "Ezreal", // 17
+            "Brand", // 18
+        });
 
         public static void Menu()
         {
@@ -141,6 +162,10 @@ namespace PortAIO.Utility
                 if (Player.ChampionName.Equals(Champion[17]))
                 {
                     Miscc.Add("ezreal", new ComboBox("Use addon for Ezreal : ", 0, "OKTW", "iDzEzreal"));
+                }
+                if (Player.ChampionName.Equals(Champion[18]))
+                {
+                    Miscc.Add("brand", new ComboBox("Use addon for Brand : ", 0, "TheBrand", "OKTW"));
                 }
             }
             else

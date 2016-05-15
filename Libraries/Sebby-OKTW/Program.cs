@@ -198,6 +198,9 @@ namespace SebbyLib
                     case "Thresh":
                         Thresh.LoadOKTW();
                         break;
+                    case "Brand":
+                        Brand.LoadOKTW();
+                        break;
                 }
             }
 

@@ -266,7 +266,6 @@ namespace PortAIO
                         SebbyLib.Program.GameOnOnGameLoad();
                         break;
                     case "azir": // Synx Auto Carry
-                        //Champion = new SAutoCarry.Champions.Azir();
                         HeavenStrikeAzir.Program.Game_OnGameLoad();
                         break;
                     case "bard": // Dreamless Wanderer
@@ -276,7 +275,18 @@ namespace PortAIO
                         PortAIO.Champion.Blitzcrank.Program.OnLoad();
                         break;
                     case "brand": // TheBrand (or OKTWBrand)
-                        PortAIO.Champion.Brand.Program.Load();
+                        switch (Loader.brand)
+                        {
+                            case 0:
+                                PortAIO.Champion.Brand.Program.Load();
+                                break;
+                            case 1:
+                                SebbyLib.Program.GameOnOnGameLoad();
+                                break;
+                            default:
+                                PortAIO.Champion.Brand.Program.Load();
+                                break;
+                        }
                         break;
                     case "cassiopeia": // Synx Auto Carry
                         Champion = new SAutoCarry.Champions.Cassiopeia();
