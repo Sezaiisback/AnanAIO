@@ -429,8 +429,8 @@ namespace ezEvade
 
                 if (spellData.invert)
                 {
-                    var reverse = (endPosition - startPosition).Normalized();
-                    endPosition = startPosition + reverse * startPosition.LSDistance(endPosition);
+                    var dir = (startPosition - endPosition).LSNormalized();
+                    endPosition = startPosition + dir * startPosition.LSDistance(endPosition);
                 }
 
                 endTick += extraEndTick;
