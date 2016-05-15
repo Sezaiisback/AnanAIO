@@ -6,7 +6,6 @@ The donation link for those who wish to donate something to me: https://goo.gl/c
 
 REMEMBER; I AM NOT ASKING FOR ANYTHING. IF YOU DO NOT WISH TO DONATE TO ME, YOU DO NOT HAVE TO.
 
-
 ---
 
 # How to report Bugs/Suggestions/Requests/Comments
@@ -16,6 +15,7 @@ REMEMBER; I AM NOT ASKING FOR ANYTHING. IF YOU DO NOT WISH TO DONATE TO ME, YOU 
 3. Make a new issue and state the title and what you need/want to report.
 
 #### DO. NOT. PM. ME. ABOUT. PORTAIO. ALL COMMENTS GO ON ISSUES.
+#### Don't buy ported addon's, ask me via an issue and I'll mostly likely do it for free.
 
 ---
 
