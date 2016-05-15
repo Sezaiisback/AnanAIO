@@ -111,6 +111,11 @@ namespace PortAIO
                     new ezEvade.Evade();
                 }
 
+                if (Loader.cheat)
+                {
+                    new TheCheater.TheCheater().Load();
+                }
+
                 /*
                 if (Loader.evade)
                 {

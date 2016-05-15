@@ -18,6 +18,7 @@ namespace PortAIO.Utility
     {
 
         public static bool useActivator { get { return Miscc["activator"].Cast<CheckBox>().CurrentValue; } }
+        public static bool cheat { get { return Miscc["cheat"].Cast<CheckBox>().CurrentValue; } }
         public static bool useTracker { get { return Miscc["tracker"].Cast<CheckBox>().CurrentValue; } }
         public static bool useRecall { get { return Miscc["recall"].Cast<CheckBox>().CurrentValue; } }
         public static bool useSkin { get { return Miscc["skin"].Cast<CheckBox>().CurrentValue; } }
@@ -163,7 +164,8 @@ namespace PortAIO.Utility
             Miscc.Add("ping", new CheckBox("Enable Ping Block?", false));
             Miscc.Add("human", new CheckBox("Enable Humanizer?", false));
             Miscc.Add("gank", new CheckBox("Enable GankAlerter?", false));
-
+            Miscc.AddSeparator();
+            Miscc.Add("cheat", new CheckBox("Enable TheCheater?", false));
             /*
             Miscc.Add("stream", new CheckBox("Enable StreamBuddy?", false));
             public static bool stream { get { return Miscc["stream"].Cast<CheckBox>().CurrentValue; } }
