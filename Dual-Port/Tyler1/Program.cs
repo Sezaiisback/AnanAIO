@@ -37,10 +37,8 @@ namespace Tyler1
         public static bool UseItems;
         private static AIHeroClient Player = ObjectManager.Player;
         private static LeagueSharp.SDK.Spell Q, W, E, R;
-        static Items.Item BOTRK, Bilgewater, Yomamas, Mercurial, QSS;
         public static Color color = Color.DarkOrange;
         public static float MyRange = 550f;
-        private static int _lastCatchAttempt;
         private static bool R1vs1;
 
         private static Dictionary<int, GameObject> Reticles;
@@ -83,10 +81,7 @@ namespace Tyler1
         private static void OnDelete(GameObject sender, EventArgs args)
         {
             var itemToDelete = Reticles.FirstOrDefault(ret => ret.Value.NetworkId == sender.NetworkId);
-            if (itemToDelete.Key != null)
-            {
-                Reticles.Remove(itemToDelete.Key);
-            }
+            Reticles.Remove(itemToDelete.Key);
         }
 
         private static void OnCreate(GameObject sender, EventArgs args)
@@ -161,6 +156,7 @@ namespace Tyler1
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex);
             }
         }
 
@@ -318,24 +314,6 @@ namespace Tyler1
                 var pred = E.GetPrediction(target);
                 if (pred.Hitchance >= HitChance.High)
                     E.Cast(pred.UnitPosition);
-            }
-
-            if (UseItems)
-            {
-                if (target.IsValidTarget(MyRange))
-                {
-                    if (Yomamas.IsReady) Yomamas.Cast();
-                    if (Bilgewater.IsReady) Bilgewater.Cast(target);
-                    if (BOTRK.IsReady) BOTRK.Cast(target);
-                }
-                //QSS
-                if (Player.HasBuffOfType(BuffType.Stun) || Player.HasBuffOfType(BuffType.Fear) ||
-                    Player.HasBuffOfType(BuffType.Charm) || Player.HasBuffOfType(BuffType.Taunt) ||
-                    Player.HasBuffOfType(BuffType.Blind))
-                {
-                    if (Mercurial.IsReady) DelayAction.Add(100, () => Mercurial.Cast());
-                    if (QSS.IsReady) DelayAction.Add(100, () => QSS.Cast());
-                }
             }
         }
 

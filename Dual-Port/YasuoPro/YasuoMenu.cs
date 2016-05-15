@@ -10,7 +10,7 @@ namespace YasuoPro
 {
     internal static class YasuoMenu
     {
-        internal static Menu Config, ComboM, HarassM, EvadeM, KillstealM, FarmingM, WaveclearM, MiscM, DrawingsM;
+        internal static Menu Config, ComboM, HarassM, KillstealM, FarmingM, WaveclearM, MiscM, DrawingsM;
         internal static Yasuo Yas;
 
         public static void Init(Yasuo yas)
