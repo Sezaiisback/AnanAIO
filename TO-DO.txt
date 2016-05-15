@@ -4,11 +4,6 @@
 
 ------------------------------------------------------------------------
 
-To-Check :
-- Make sure to port in Exory's AIO when fully ported to L# SDK.
-
-------------------------------------------------------------------------
-
 Port [Will Port One at a time when I'm bored or there's nothing on the to-do] :
 - AIOCaster
 - OKTW Brand/Blitzcrank/Corki/Darius/Evelynn/Jhin/Kindred/Kog'Maw/Lux/Morg/Quinn/TF
