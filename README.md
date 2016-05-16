@@ -1,18 +1,6 @@
-# Donations 
-#####(Thanks Xelamats)
-I've been getting asked a lot about if I will ever put a donation link up and I've decide to do so. Please, don't think this means I will make this pay to use or "I have to get a certain amount or I'll stop working on it." I will not do that and I do not plan on ever doing that right now. I love what I do and I love that it makes others happy; so, as long as I continue to see that.. I will continue this project.
-
-The donation link for those who wish to donate something to me: https://goo.gl/chlE8k
-
-REMEMBER; I AM NOT ASKING FOR ANYTHING. IF YOU DO NOT WISH TO DONATE TO ME, YOU DO NOT HAVE TO.
-
----
-
-# How to report Bugs/Suggestions/Requests/Comments
-### Before making an issue, check the to-do list before. https://github.com/berbb/PortAIO/blob/master/TO-DO.txt
-1. Make a GitHub accounts if you don't already.
-2. Sign in and go to : https://github.com/berbb/PortAIO/issues
-3. Make a new issue and state the title and what you need/want to report.
+SA GENÇLİK BERB GARDAŞIMIZIN SİLDİĞİ PORTAIO PROJESİNİN KOPYALANMIŞ HALİDİR, BUGLARI CART CURT BANA BİLDİRMEYİN ÇÜNKÜ KODDAN Bİ SİKİM ANLAMIYOM. AŞŞAADAA BERB GARDAŞIMIZIN DEDİİ GİBİ PORTLU ADDONA PARA VERMEYİN.
+EĞER COMPİLİNG ERROR VERİYOSA BERB.COMMON KURUN YİNE VERİYOSA MS BUİLD TOOLS KURUN EHUEUEHU :)
+KOD İŞİNDE KENDİNE GÜVENEN BABA YİĞİT ARKADAŞLAR BANA DİSCORDDAN ULAŞSIN SORACAAM ŞEYLER VAR
 
 #### DO. NOT. PM. ME. ABOUT. PORTAIO. ALL COMMENTS GO ON ISSUES.
 #### Don't buy ported addon's, ask me via an issue and I'll mostly likely do it for free.
